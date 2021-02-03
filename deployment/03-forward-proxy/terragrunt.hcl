@@ -19,7 +19,7 @@ include {
 
 terraform {
   #need to peg to version
-  source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service"
+  source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service?ref=hotpatch"
 }
 
 dependency "common" {
