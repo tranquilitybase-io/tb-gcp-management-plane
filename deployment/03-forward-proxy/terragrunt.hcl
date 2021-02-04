@@ -27,6 +27,7 @@ dependency "common" {
   mock_outputs = {
     subnet_name          = "subnet_name"
     service_account_name = "service_account_name"
+    vpc_name             = "vpc_name"
   }
 }
 
@@ -34,6 +35,8 @@ dependency "common" {
 inputs = {
   subnet_name          = dependency.common.outputs.subnet_name
   service_account_name = dependency.common.outputs.service_account_name
+  vpc_name             = dependency.common.outputs.vpc_name
   folder_id            = get_env("folder_id")
   region               = get_env("region")
+
 }
