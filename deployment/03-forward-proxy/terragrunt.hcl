@@ -33,10 +33,8 @@ dependency "common" {
 
 
 inputs = {
-  subnet_name          = dependency.common.outputs.subnet_name
-  service_account_name = dependency.common.outputs.service_account_name
-  vpc_name             = dependency.common.outputs.vpc_name
-  folder_id            = get_env("folder_id")
+  subnet_self_link     = dependency.common.outputs.subnet_self_link
+  network_self_link    = dependency.common.outputs.network_self_link
   region               = get_env("region")
-
+  project_id           = get_env("project_id")
 }

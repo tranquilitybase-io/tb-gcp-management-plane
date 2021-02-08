@@ -19,7 +19,7 @@ include {
 
 terraform {
   #need to peg to version
-  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap"
+  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap?ref=issue-1"
 }
 
 inputs = {
