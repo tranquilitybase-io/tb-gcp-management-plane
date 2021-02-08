@@ -17,6 +17,11 @@ include {
   path = find_in_parent_folders()
 }
 
+locals {
+  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  skip        = lookup(local.common_vars, "skip_gke", false)
+}
+
 #terraform {
 #  #need to peg to version
 #  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap-gke?ref=issue-fluxctl"
@@ -31,6 +36,6 @@ dependency "common" {
 }
 
 inputs = {
-  network_name = dependency.common.outputs.network_name
+  network_name = dependency.common.outputs.vpc_name
   subnet_name  = dependency.common.outputs.subnet_name
 }
