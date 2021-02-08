@@ -17,6 +17,11 @@ include {
   path = find_in_parent_folders()
 }
 
+locals {
+  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  skip        = lookup(local.common_vars, "skip_forward_proxy", false)
+}
+
 terraform {
   #need to peg to version
   source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service?ref=hotpatch"
@@ -25,15 +30,15 @@ terraform {
 dependency "common" {
   config_path = "../01-common"
   mock_outputs = {
-    subnet_self_link  = "subnet_self_link"
-    network_self_link = "network_self_link"
+    subnet_name          = "subnet_name"
+    service_account_name = "service_account_name"
+    vpc_name             = "vpc_name"
   }
 }
 
 inputs = {
-  subnet_self_link  = dependency.common.outputs.subnet_self_link
-  network_self_link = dependency.common.outputs.network_self_link
-  region            = get_env("region")
-  project_id        = get_env("project_id")
-  folder_id         = get_env("folder_id")
+  subnet_self_link     = dependency.common.outputs.subnet_self_link
+  network_self_link    = dependency.common.outputs.network_self_link
+  region               = get_env("region")
+  project_id           = get_env("project_id")
 }
