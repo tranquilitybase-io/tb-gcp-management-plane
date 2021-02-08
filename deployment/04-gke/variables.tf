@@ -137,7 +137,7 @@ variable "horizontal_pod_autoscaling" {
 
 // // terragrunt variables // //
 
-variable "vpc_name" {
+variable "network_name" {
 }
 
 variable "subnet_name" {

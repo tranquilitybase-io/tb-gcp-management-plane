@@ -25,21 +25,12 @@ include {
 dependency "common" {
   config_path = "../01-common"
   mock_outputs = {
-    vpc_name    = "vpc_name"
+    network_name    = "network_name"
     subnet_name = "subnet_name"
-    #vpc_id      = "vpc_id"
   }
 }
 
 inputs = {
- # project_id           = get_env("project_id")
- # region               = get_env("region")
- # random_id            = get_env("random_id")
- # folder_id            = get_env("folder_id")
- # state_bucket_name    = get_env("state_bucket_name")
- # discriminator        = get_env("discriminator")
- # billing_id           = get_env("billing_id")
- # vpc_id               = dependency.common.outputs.vpc_id
-  vpc_name             = dependency.common.outputs.vpc_name
-  subnet_name          = dependency.common.outputs.subnet_name
+  network_name = dependency.common.outputs.vpc_name
+  subnet_name  = dependency.common.outputs.subnet_name
 }

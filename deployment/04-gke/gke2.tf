@@ -17,7 +17,7 @@ module "gke" {
   version                    = "12.3.0"
 
   region                     = var.region
-  network                    = var.vpc_name
+  network                    = var.network_name
   subnetwork                 = var.subnet_name
   project_id                 = var.project_id
   name                       = local.cluster_name
