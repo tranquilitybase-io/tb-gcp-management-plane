@@ -17,28 +17,28 @@ include {
   path = find_in_parent_folders()
 }
 
-dependency "common" {
-  config_path = "../01-common"
-  mock_outputs = {
-    vpc_name    = "vpc_name"
-    subnet_name = "subnet_name"
-    vpc_id      = "vpc_id"
-  }
-}
-
-dependency "gke" {  //need to make output
-  config_path = "../01-gke"
-  mock_outputs = {
-    cluster_name = "cluster_name"
-  }
-}
-
-inputs = {
-  vpc_id               = dependency.common.outputs.vpc_id
-  vpc_name             = dependency.common.outputs.vpc_name
-  subnet_name          = dependency.common.outputs.subnet_name
-  cluster_name         = dependency.gke.outputs.cluster_name
-  folder_id            = get_env("folder_id")
-  billing_id           = get_env("billing_id")
-  state_bucket_name    = get_env("state_bucket_name")
-}
+//dependency "common" {
+//  config_path = "../01-common"
+//  mock_outputs = {
+//    vpc_name    = "vpc_name"
+//    subnet_name = "subnet_name"
+//    vpc_id      = "vpc_id"
+//  }
+//}
+//
+//dependency "gke" {  //need to make output
+//  config_path = "../01-gke"
+//  mock_outputs = {
+//    cluster_name = "cluster_name"
+//  }
+//}
+//
+//inputs = {
+//  network_id               = dependency.common.outputs.vpc_id
+//  network_name             = dependency.common.outputs.vpc_name
+//  subnet_name          = dependency.common.outputs.subnet_name
+//  cluster_name         = dependency.gke.outputs.cluster_name
+//  folder_id            = get_env("folder_id")
+//  billing_id           = get_env("billing_id")
+//  state_bucket_name    = get_env("state_bucket_name")
+//}
