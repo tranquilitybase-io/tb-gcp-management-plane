@@ -32,14 +32,14 @@ dependency "common" {
 }
 
 inputs = {
- # project_id           = get_env("project_id")
- # region               = get_env("region")
- # random_id            = get_env("random_id")
- # folder_id            = get_env("folder_id")
- # state_bucket_name    = get_env("state_bucket_name")
- # discriminator        = get_env("discriminator")
- # billing_id           = get_env("billing_id")
- # vpc_id               = dependency.common.outputs.vpc_id
-  vpc_name             = dependency.common.outputs.vpc_name
-  subnet_name          = dependency.common.outputs.subnet_name
+  # project_id           = get_env("project_id")
+  # region               = get_env("region")
+  # random_id            = get_env("random_id")
+  # folder_id            = get_env("folder_id")
+  # state_bucket_name    = get_env("state_bucket_name")
+  # discriminator        = get_env("discriminator")
+  # billing_id           = get_env("billing_id")
+  # vpc_id               = dependency.common.outputs.vpc_id
+  vpc_name    = dependency.common.outputs.vpc_name
+  subnet_name = dependency.common.outputs.subnet_name
 }

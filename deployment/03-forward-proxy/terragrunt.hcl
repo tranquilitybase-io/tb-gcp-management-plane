@@ -30,7 +30,6 @@ dependency "common" {
   }
 }
 
-
 inputs = {
   subnet_name          = dependency.common.outputs.subnet_name
   service_account_name = dependency.common.outputs.service_account_name

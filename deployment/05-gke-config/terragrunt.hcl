@@ -26,7 +26,7 @@ dependency "common" {
   }
 }
 
-dependency "gke" {  //need to make output
+dependency "gke" { //need to make output
   config_path = "../01-gke"
   mock_outputs = {
     cluster_name = "cluster_name"
@@ -34,11 +34,11 @@ dependency "gke" {  //need to make output
 }
 
 inputs = {
-  vpc_id               = dependency.common.outputs.vpc_id
-  vpc_name             = dependency.common.outputs.vpc_name
-  subnet_name          = dependency.common.outputs.subnet_name
-  cluster_name         = dependency.gke.outputs.cluster_name
-  folder_id            = get_env("folder_id")
-  billing_id           = get_env("billing_id")
-  state_bucket_name    = get_env("state_bucket_name")
+  vpc_id            = dependency.common.outputs.vpc_id
+  vpc_name          = dependency.common.outputs.vpc_name
+  subnet_name       = dependency.common.outputs.subnet_name
+  cluster_name      = dependency.gke.outputs.cluster_name
+  folder_id         = get_env("folder_id")
+  billing_id        = get_env("billing_id")
+  state_bucket_name = get_env("state_bucket_name")
 }
