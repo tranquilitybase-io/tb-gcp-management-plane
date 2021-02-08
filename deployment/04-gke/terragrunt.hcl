@@ -31,6 +31,6 @@ dependency "common" {
 }
 
 inputs = {
-  network_name = dependency.common.outputs.vpc_name
+  network_name = dependency.common.outputs.network_name
   subnet_name  = dependency.common.outputs.subnet_name
 }
