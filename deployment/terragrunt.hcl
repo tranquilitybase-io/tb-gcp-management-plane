@@ -15,7 +15,7 @@
 remote_state {
   backend = "gcs"
   config  = {
-    bucket   = get_env("TG_VAR_STATE_BUCKET_NAME")
+    bucket   = get_env("TG_VAR_BUCKET")
     prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
     project  = get_env("TG_VAR_PROJECT_ID")
     location = get_env("TG_VAR_REGION")
