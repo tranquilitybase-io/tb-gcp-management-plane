@@ -49,9 +49,9 @@ export TF_VAR_project_id=${TBASE_PROJECT_NAME}
 export TF_VAR_region=${TBASE_REGION}
 
 #used in terragrunt backend
-export TG_VAR_PROJECT_ID=${TBASE_PROJECT_NAME}
-export TG_VAR_REGION=${TBASE_REGION}
-export TG_VAR_BUCKET=${TG_STATE_BUCKET_NAME}
+export TG_PROJECT_ID=${TBASE_PROJECT_NAME}
+export TG_REGION=${TBASE_REGION}
+export TG_BUCKET=${TG_STATE_BUCKET_NAME}
 
 cd ./deployment
 
