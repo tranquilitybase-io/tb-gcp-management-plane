@@ -56,7 +56,6 @@ export TG_VAR_STATE_BUCKET_NAME=${TG_STATE_BUCKET_NAME}
 cd ./deployment
 
 terragrunt init --terragrunt-non-interactive
-terragrunt plan-all --terragrunt-non-interactive
 terragrunt apply-all -auto-approve --terragrunt-non-interactive
 
 echo "Bootstrap apply completed successfully"
