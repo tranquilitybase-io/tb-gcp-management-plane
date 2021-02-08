@@ -25,9 +25,8 @@ terraform {
 dependency "common" {
   config_path = "../01-common"
   mock_outputs = {
-    subnet_name          = "subnet_name"
-    service_account_name = "service_account_name"
-    vpc_name             = "vpc_name"
+    subnet_self_link  = "subnet_self_link"
+    network_self_link = "network_self_link"
   }
 }
 
