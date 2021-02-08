@@ -19,6 +19,8 @@ include {
 
 locals {
   common_vars  = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  project_id   = local.common_vars.project_id
+  region       = local.common_vars.region
   network_name = "tb-mgmt-network"
   subnet_name  = "tb-mgmt-snet-${local.common_vars.region}"
 }
@@ -28,14 +30,14 @@ terraform {
 }
 
 inputs = {
-  project_id   = local.common_vars.project_id
-  region       = local.common_vars.region
+  project_id   = local.project_id
+  region       = local.region
   network_name = local.network_name
   subnets = [
     {
       subnet_name               = local.subnet_name
       subnet_ip                 = "10.64.0.0/20"
-      subnet_region             = local.common_vars.region
+      subnet_region             = local.region
       subnet_private_access     = "true"
       subnet_flow_logs          = "true"
       subnet_flow_logs_interval = "INTERVAL_10_MIN"

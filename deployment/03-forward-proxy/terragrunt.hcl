@@ -30,7 +30,6 @@ dependency "common" {
   }
 }
 
-
 inputs = {
   subnet_self_link  = dependency.common.outputs.subnet_self_link
   network_self_link = dependency.common.outputs.network_self_link
