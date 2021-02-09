@@ -17,10 +17,10 @@ include {
   path = find_in_parent_folders()
 }
 
-locals {
-  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  skip        = lookup(local.common_vars, "skip_common_layer", false)
-}
+//locals {
+//  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+//  skip        = lookup(local.common_vars, "skip_common_layer", false)
+//}
 
 terraform {
   #need to peg to version
@@ -35,4 +35,4 @@ inputs = {
   random_id  = get_env("random_id")
 }
 
-skip = local.skip
+//skip = local.skip

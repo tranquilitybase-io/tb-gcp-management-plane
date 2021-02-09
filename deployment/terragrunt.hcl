@@ -15,10 +15,10 @@
 remote_state {
   backend = "gcs"
   config = {
-    bucket   = get_env("TG_BUCKET")
+    bucket   = get_env("TG_BUCKET") //local.common_vars.bucket //
     prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
-    project  = get_env("TG_PROJECT_ID")
-    location = get_env("TG_REGION")
+    project  = get_env("TG_PROJECT_ID") //local.common_vars.project_id
+    location = get_env("TG_REGION") //local.common_vars.region
 
     enable_bucket_policy_only = true
     gcs_bucket_labels = {

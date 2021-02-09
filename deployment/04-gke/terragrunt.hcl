@@ -17,10 +17,10 @@ include {
   path = find_in_parent_folders()
 }
 
-locals {
-  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  skip        = lookup(local.common_vars, "skip_gke", false)
-}
+//locals {
+//  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+//  skip        = lookup(local.common_vars, "skip_gke", false)
+//}
 
 #terraform {
 #  #need to peg to version
@@ -30,12 +30,12 @@ locals {
 dependency "common" {
   config_path = "../01-common"
   mock_outputs = {
-    network_name    = "network_name"
-    subnet_name = "subnet_name"
+    network_name = "network_name"
+    subnet_name  = "subnet_name"
   }
 }
 
 inputs = {
-  network_name = dependency.common.outputs.vpc_name
+  network_name = dependency.common.outputs.network_name
   subnet_name  = dependency.common.outputs.subnet_name
 }

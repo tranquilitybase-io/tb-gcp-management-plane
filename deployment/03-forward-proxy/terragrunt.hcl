@@ -17,10 +17,10 @@ include {
   path = find_in_parent_folders()
 }
 
-locals {
-  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  skip        = lookup(local.common_vars, "skip_forward_proxy", false)
-}
+//locals {
+//  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+//  skip        = lookup(local.common_vars, "skip_forward_proxy", false)
+//}
 
 terraform {
   #need to peg to version
@@ -38,6 +38,6 @@ dependency "common" {
 inputs = {
   subnet_self_link  = dependency.common.outputs.subnet_self_link
   network_self_link = dependency.common.outputs.network_self_link
-  region            = get_env("region")
-  project_id        = get_env("project_id")
+  region            = get_env("region") //local.common_vars.region
+  project_id        = get_env("project_id") //local.common_vars.project_id
 }
