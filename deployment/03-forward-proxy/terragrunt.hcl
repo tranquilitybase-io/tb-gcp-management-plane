@@ -24,7 +24,7 @@ locals {
 
 terraform {
   #need to peg to version
-  source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service?ref=hotpatch"
+  source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service?ref=issue-1"
 }
 
 dependency "common" {
@@ -41,5 +41,4 @@ inputs = {
   network_self_link = dependency.common.outputs.network_self_link
   region            = get_env("region")
   project_id        = get_env("project_id")
-  folder_id         = get_env("folder_id")
 }
