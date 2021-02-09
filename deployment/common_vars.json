@@ -1,0 +1,8 @@
+{
+  "project_id": "zi01-sandbox-proj",
+  "region": "europe-west2",
+  "skip_common_layer": true,
+  "skip_forward_proxy": true,
+  "skip_gke": true,
+  "skip_gke_config": true
+}

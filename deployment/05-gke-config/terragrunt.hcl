@@ -17,6 +17,11 @@ include {
   path = find_in_parent_folders()
 }
 
+locals {
+  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  skip        = lookup(local.common_vars, "skip_gke_config", false)
+}
+
 dependency "common" {
   config_path = "../01-common"
   mock_outputs = {
@@ -42,3 +47,5 @@ inputs = {
   billing_id        = get_env("billing_id")
   state_bucket_name = get_env("state_bucket_name")
 }
+
+skip = local.skip

@@ -17,6 +17,11 @@ include {
   path = find_in_parent_folders()
 }
 
+locals {
+  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  skip        = lookup(local.common_vars, "skip_forward_proxy", false)
+}
+
 terraform {
   #need to peg to version
   source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service"
@@ -35,3 +40,5 @@ inputs = {
   service_account_name = dependency.common.outputs.service_account_name
   folder_id            = get_env("folder_id")
 }
+
+skip = local.skip

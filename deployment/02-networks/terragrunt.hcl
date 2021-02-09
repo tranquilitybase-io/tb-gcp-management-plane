@@ -19,10 +19,11 @@ include {
 
 locals {
   common_vars  = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  network_name = "tb-mgmt-network"
   project_id   = local.common_vars.project_id
   region       = local.common_vars.region
-  network_name = "tb-mgmt-network"
   subnet_name  = "tb-mgmt-snet-${local.common_vars.region}"
+  skip         = lookup(local.common_vars, "skip_networks", false)
 }
 
 terraform {
@@ -58,3 +59,5 @@ inputs = {
     ]
   }
 }
+
+skip = local.skip
