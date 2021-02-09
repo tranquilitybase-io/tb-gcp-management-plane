@@ -14,7 +14,7 @@
 
 remote_state {
   backend = "gcs"
-  config  = {
+  config = {
     bucket   = get_env("TG_BUCKET")
     prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
     project  = get_env("TG_PROJECT_ID")
@@ -22,9 +22,21 @@ remote_state {
 
     enable_bucket_policy_only = true
     gcs_bucket_labels = {
-      activator_type = "managementplane"
+      activator_type = "management-plane"
       environment    = "development"
       terraform      = "true"
     }
   }
 }
+
+generate "backend" {
+  path      = "backend.tf"
+  if_exists = "overwrite"
+  contents  = <<EOF
+terraform {
+  backend "gcs" {}
+}
+EOF
+}
+
+skip = true
