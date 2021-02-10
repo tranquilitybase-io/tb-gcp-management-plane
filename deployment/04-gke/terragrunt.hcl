@@ -23,8 +23,6 @@ locals {
 
   prefix       = local.common_vars.random_id
   cluster_name = format("%s-%s", "gke-ec", local.prefix)
-  //sa_name      = "kubernetes-ec"
-  //sa_email     = format("%s@%s.%s", local.sa_name, local.common_vars.project_id, "iam.gserviceaccount.com")
 }
 
 terraform {
@@ -87,7 +85,6 @@ inputs = {
         max_count          = 3
         machine_type       = "e2-standard-4"
         disk_size_gb       = "30"
-        //service_account    = local.sa_email
         create_service_account = true
       }
     ]
