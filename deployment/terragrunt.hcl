@@ -14,20 +14,23 @@
 
 remote_state {
   backend = "gcs"
-  config = {
-    bucket   = get_env("TG_BUCKET") //local.common_vars.bucket //
-    prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
-    project  = get_env("TG_PROJECT_ID") //local.common_vars.project_id
-    location = get_env("TG_REGION") //local.common_vars.region
 
-    enable_bucket_policy_only = true
-    gcs_bucket_labels = {
-      activator_type = "management-plane"
-      environment    = "development"
-      terraform      = "true"
-    }
+  config = {
+    bucket   = get_env("TG_BUCKET")
+    prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
+    project  = get_env("TG_PROJECT")
+    location = get_env("TG_REGION")
+    skip_bucket_creation = true
+//    enable_bucket_policy_only = true
+//    gcs_bucket_labels = {
+//      activator_type = "management-plane"
+//      environment    = "development"
+//      terraform      = "true"
+//    }
   }
 }
+
+
 
 generate "backend" {
   path      = "backend.tf"

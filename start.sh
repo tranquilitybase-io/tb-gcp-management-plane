@@ -2,25 +2,23 @@
 
 set -euo pipefail
 
-TERRAFORM_VERSION=0.13.5
+TERRAFORM_VERSION=0.14.6
 TERRAGRUNT_VERSION=0.28.1
 
 function setup {
   echo "Executing setup..."
-  sudo apt update
-  sudo apt install -y wget unzip
 
   #install terragrunt
-  wget -qO /tmp/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_amd64
+  wget -O /tmp/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_darwin_amd64
   chmod +x /tmp/terragrunt
   sudo mv /tmp/terragrunt /usr/local/bin
   terragrunt -version
 
   #install terraform
-  wget -qO /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-  unzip -q /tmp/terraform.zip -d /tmp && \
-  chmod +x /tmp/terraform && \
-  sudo mv /tmp/terraform /usr/local/bin && \
+  wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_darwin_amd64.zip
+  unzip -q /tmp/terraform.zip -d /tmp
+  chmod +x /tmp/terraform
+  sudo mv /tmp/terraform /usr/local/bin
   terraform --version
 }
 
