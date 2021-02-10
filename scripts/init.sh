@@ -15,5 +15,5 @@ if [ -z "$buckets" ]; then
   echo Creating terraform state bucket: $TG_BUCKET
   gsutil mb -b on -l $TG_REGION gs://$TG_BUCKET
 else
-  echo Skipping terraform state bucket creation
+  echo Skipping terraform state bucket creation: $TG_BUCKET
 fi
