@@ -23,21 +23,22 @@ locals {
 }
 
 terraform {
-  #need to peg to version
   source = "github.com/tranquilitybase-io/tb-gcp-forward-proxy-service?ref=issue-1"
 }
 
 dependency "network" {
   config_path = "../02-networks"
   mock_outputs = {
-    subnet_self_link  = "subnet_self_link"
-    network_self_link = "network_self_link"
+    subnets_self_links = ["subnet_self_link"]
+    network_self_link  = "network_self_link"
   }
 }
 
 inputs = {
-  subnet_self_link  = dependency.network.outputs.subnet_self_links[0]
+  subnets_name      = dependency.network.outputs.subnets_self_links[0]
   network_self_link = dependency.network.outputs.network_self_link
   region            = local.common_vars.region
   project_id        = local.common_vars.project_id
 }
+
+skip = local.skip

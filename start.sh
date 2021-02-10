@@ -3,7 +3,7 @@
 set -euo pipefail
 
 TERRAFORM_VERSION=0.14.6
-TERRAGRUNT_VERSION=0.28.1
+TERRAGRUNT_VERSION=0.28.2
 
 function setup {
   echo "Executing setup..."
