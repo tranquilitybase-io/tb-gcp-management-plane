@@ -5,10 +5,6 @@ SHELL := /usr/bin/env bash
 lint:
 	@source scripts/lint.sh
 
-.PHONY: init
-init:
-	@source scripts/init.sh
-
 .PHONY: setup
 setup:
 	@source scripts/setup.sh
