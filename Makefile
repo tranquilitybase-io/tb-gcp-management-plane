@@ -1,13 +1,17 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
 
-.PHONY: validate
-validate:
-	@source scripts/tg-wrapper.sh validate
+.PHONY: lint
+lint:
+	@source scripts/lint.sh
 
 .PHONY: setup
 setup:
 	@source scripts/setup.sh
+
+.PHONY: validate
+validate:
+	@source scripts/tg-wrapper.sh validate
 
 .PHONY: plan
 plan:
