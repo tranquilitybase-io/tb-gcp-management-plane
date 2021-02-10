@@ -22,4 +22,5 @@ wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_
 unzip -q /tmp/terraform.zip -d /tmp
 chmod +x /tmp/terraform
 sudo mv /tmp/terraform /usr/local/bin
+rm /tmp/terraform.zip
 terraform --version
