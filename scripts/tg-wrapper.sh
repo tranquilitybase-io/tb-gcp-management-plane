@@ -10,4 +10,4 @@ fi
 
 cd deployment
 terragrunt init
-terragrunt run-all $1
+terragrunt run-all $1 --terragrunt-non-interactive
