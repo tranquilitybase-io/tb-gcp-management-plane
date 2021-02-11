@@ -22,7 +22,7 @@ locals {
   skip        = lookup(local.common_vars, "skip_gke", false)
 
   //prefix       = local.common_vars.random_id
-  //cluster_name = format("%s-%s", "gke-ec", local.prefix)
+  cluster_name = "tb-mgmt-gke"
 }
 
 terraform {
@@ -42,7 +42,7 @@ inputs = {
   network                   = dependency.network.outputs.network_name
   subnetwork                = dependency.network.outputs.subnets_names[0]
   project_id                = local.common_vars.project_id
-  name                      = "tb-mgmt-gke"
+  name                      = local.cluster_name
   ip_range_pods             = "gke-pods-snet"
   ip_range_services         = "gke-services-snet"
   enable_private_endpoint   = true
@@ -107,4 +107,3 @@ inputs = {
 }
 
 skip = local.skip
-
