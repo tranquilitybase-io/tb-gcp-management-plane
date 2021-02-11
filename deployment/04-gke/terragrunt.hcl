@@ -20,33 +20,91 @@ include {
 locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   skip        = lookup(local.common_vars, "skip_gke", false)
+
+  prefix       = local.common_vars.random_id
+  cluster_name = format("%s-%s", "gke-ec", local.prefix)
 }
 
-#terraform {
-#  #need to peg to version
-#  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap-gke?ref=issue-fluxctl"
-#}
+terraform {
+  source = "github.com/terraform-google-modules/terraform-google-kubernetes-engine//modules/beta-private-cluster?ref=v12.3.0"
+}
 
-dependency "common" {
-  config_path = "../01-common"
+dependency "network" {
+  config_path = "../02-networks"
   mock_outputs = {
-    vpc_name    = "vpc_name"
-    subnet_name = "subnet_name"
-    #vpc_id      = "vpc_id"
+    subnets_names     = ["subnets_names"]
+    network_name      = "network_name"
   }
 }
 
 inputs = {
-  # project_id           = get_env("project_id")
-  # region               = get_env("region")
-  # random_id            = get_env("random_id")
-  # folder_id            = get_env("folder_id")
-  # state_bucket_name    = get_env("state_bucket_name")
-  # discriminator        = get_env("discriminator")
-  # billing_id           = get_env("billing_id")
-  # vpc_id               = dependency.common.outputs.vpc_id
-  vpc_name    = dependency.common.outputs.vpc_name
-  subnet_name = dependency.common.outputs.subnet_name
+  region                    = local.common_vars.region
+  network                   = dependency.network.outputs.network_name
+  subnetwork                = dependency.network.outputs.subnets_names[0]
+  project_id                = local.common_vars.project_id
+  name                      = local.cluster_name
+  ip_range_pods             = "gke-pods-snet"
+  ip_range_services         = "gke-services-snet"
+  enable_private_endpoint   = true
+  enable_private_nodes      = true
+  remove_default_node_pool  = true
+  initial_node_count        = 0
+  maintenance_start_time    = "02:00"
+  monitoring_service        = "monitoring.googleapis.com/kubernetes"
+  logging_service           = "logging.googleapis.com/kubernetes"
+  basic_auth_username       = ""
+  basic_auth_password       = ""
+  issue_client_certificate  = false
+  default_max_pods_per_node = 110
+  master_authorized_networks = [
+    {
+      cidr_block   = "10.0.0.0/8",
+      display_name = "mgmt-1"
+    },
+    {
+      cidr_block   = "10.0.6.0/24",
+      display_name = "proxy-subnet"
+    },
+    {
+      cidr_block   = "172.16.0.18/32",
+      display_name = "initial-admin-ip"
+    }
+  ]
+  master_ipv4_cidr_block     = "172.16.0.0/28"
+  horizontal_pod_autoscaling = false
+  kubernetes_version         = "latest"
+  istio                      = true
+  istio_auth                 = "AUTH_MUTUAL_TLS"
+
+  node_pools = [
+    {
+      name                   = "gke-ec-node-pool"
+      initial_node_count     = 1
+      min_count              = 1
+      max_count              = 3
+      machine_type           = "e2-standard-4"
+      disk_size_gb           = "30"
+      create_service_account = true
+    }
+  ]
+
+  node_pools_oauth_scopes = {
+    all = []
+
+    default-node-pool = [
+      "https://www.googleapis.com/auth/cloud-platform",
+    ]
+  }
+
+  node_pools_tags = {
+    all = []
+
+    default-node-pool = [
+      "gke-private",
+      local.cluster_name
+    ]
+  }
 }
 
-skip = true
+skip = local.skip
+

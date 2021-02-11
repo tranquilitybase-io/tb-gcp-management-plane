@@ -19,20 +19,7 @@ include {
 
 locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  skip        = lookup(local.common_vars, "skip_common_layer", false)
-}
-
-terraform {
-  #need to peg to version
-  source = "github.com/tranquilitybase-io/tb-gcp-bootstrap"
-}
-
-inputs = {
-  project_id = get_env("project_id")
-  folder_id  = get_env("folder_id")
-  region     = get_env("region")
-  billing_id = get_env("billing_id")
-  random_id  = get_env("random_id")
+  skip        = lookup(local.common_vars, "skip_common", true)
 }
 
 skip = local.skip

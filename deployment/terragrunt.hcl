@@ -14,18 +14,11 @@
 
 remote_state {
   backend = "gcs"
-  config = {
-    bucket   = get_env("TG_BUCKET")
-    prefix   = "deployment/${path_relative_to_include()}/terraform.tfstate"
-    project  = get_env("TG_PROJECT_ID")
-    location = get_env("TG_REGION")
 
-    enable_bucket_policy_only = true
-    gcs_bucket_labels = {
-      activator_type = "management-plane"
-      environment    = "development"
-      terraform      = "true"
-    }
+  config = {
+    bucket               = get_env("TG_BUCKET")
+    prefix               = "deployment/${path_relative_to_include()}/terraform.tfstate"
+    skip_bucket_creation = true
   }
 }
 
@@ -38,5 +31,3 @@ terraform {
 }
 EOF
 }
-
-skip = true
