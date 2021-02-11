@@ -9,5 +9,4 @@ if [ -z "$1" ]
 fi
 
 cd deployment
-terragrunt init
 terragrunt run-all $1 --terragrunt-non-interactive
