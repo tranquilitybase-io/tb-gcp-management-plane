@@ -21,8 +21,8 @@ locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   skip        = lookup(local.common_vars, "skip_gke", false)
 
-  prefix       = local.common_vars.random_id
-  cluster_name = format("%s-%s", "gke-ec", local.prefix)
+  //prefix       = local.common_vars.random_id
+  //cluster_name = format("%s-%s", "gke-ec", local.prefix)
 }
 
 terraform {
@@ -42,7 +42,7 @@ inputs = {
   network                   = dependency.network.outputs.network_name
   subnetwork                = dependency.network.outputs.subnets_names[0]
   project_id                = local.common_vars.project_id
-  name                      = local.cluster_name
+  name                      = "tb-mgmt-gke"
   ip_range_pods             = "gke-pods-snet"
   ip_range_services         = "gke-services-snet"
   enable_private_endpoint   = true
