@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -euo pipefail
+#set -eo pipefail
 
 export TG_PROJECT=$(jq -r '.project_id' ./deployment/common_vars.json)
 export TG_REGION=$(jq -r '.region' ./deployment/common_vars.json)

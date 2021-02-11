@@ -30,10 +30,10 @@ terraform {
 }
 
 dependency "network" {
-  config_path = "../02-networks"
+  config_path = "../02-network"
   mock_outputs = {
-    subnets_names     = ["subnets_names"]
-    network_name      = "network_name"
+    subnets_names = ["subnets_names"]
+    network_name  = "network_name"
   }
 }
 

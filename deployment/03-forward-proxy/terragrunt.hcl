@@ -27,7 +27,7 @@ terraform {
 }
 
 dependency "network" {
-  config_path = "../02-networks"
+  config_path = "../02-network"
   mock_outputs = {
     subnets_self_links = ["subnet_self_link"]
     network_self_link  = "network_self_link"
