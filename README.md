@@ -9,7 +9,7 @@
 
 ## Usage
 
-# Pre-Requisites
+### Pre-Requisites
 
 - Create a project for deployment
 - Clone git repo
@@ -32,7 +32,7 @@ make setup
 
 ```
 
-# Deployment
+### Deployment
 
 - Execute the following in a terminal:
 
