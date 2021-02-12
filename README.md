@@ -1,5 +1,3 @@
-## Deployment
-
 ## Requirements
 
 | Name | Version |
