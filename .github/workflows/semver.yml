@@ -26,8 +26,8 @@ jobs:
 
     - uses: actions/checkout@v2
       with:
-        repository: tranquilitybase-io/tb-gcp-management-plane
-        path: tb-gcp-management-plane
+        repository: tranquilitybase-io/tb-gcp-management-plane-architecture
+        path: tb-gcp-management-plane-architecture
         fetch-depth: 0
 
     - name: run semver
@@ -36,5 +36,5 @@ jobs:
         bash -x ${GITHUB_WORKSPACE}/TranquilityBase/scripts/semver_tag.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SOURCE: "tb-gcp-management-plane"
+        SOURCE: "tb-gcp-management-plane-architecture"
         WITH_V: "true"
