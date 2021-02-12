@@ -85,6 +85,7 @@ inputs = {
       machine_type           = "e2-standard-4"
       disk_size_gb           = "30"
       create_service_account = true
+      preemptible            = false
     }
   ]
 
