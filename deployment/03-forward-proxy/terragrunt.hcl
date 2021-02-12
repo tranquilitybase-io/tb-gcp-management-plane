@@ -35,7 +35,7 @@ dependency "network" {
 }
 
 inputs = {
-  subnets_name      = dependency.network.outputs.subnets_self_links[0]
+  subnet_name       = dependency.network.outputs.subnets_self_links[0]
   network_self_link = dependency.network.outputs.network_self_link
   region            = local.common_vars.region
   project_id        = local.common_vars.project_id
