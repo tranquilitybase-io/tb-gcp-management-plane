@@ -26,36 +26,41 @@ locals {
 }
 
 terraform {
-  source = "github.com/terraform-google-modules/terraform-google-kubernetes-engine//modules/beta-private-cluster?ref=v12.3.0"
+  source = "github.com/terraform-google-modules/terraform-google-kubernetes-engine//modules/beta-private-cluster?ref=v13.0.0"
 }
 
 dependency "network" {
   config_path = "../02-network"
   mock_outputs = {
-    subnets_names = ["subnets_names"]
-    network_name  = "network_name"
+    network_name           = "network_name"
+    subnets_ip_cidr_ranges = "subnets_ip_cidr_ranges"
+    subnets_names          = ["subnets_names"]
   }
 }
 
 inputs = {
-  region                    = local.common_vars.region
-  network                   = dependency.network.outputs.network_name
-  subnetwork                = dependency.network.outputs.subnets_names[0]
-  project_id                = local.common_vars.project_id
-  name                      = local.cluster_name
-  ip_range_pods             = "gke-pods-snet"
-  ip_range_services         = "gke-services-snet"
-  enable_private_endpoint   = true
-  enable_private_nodes      = true
-  remove_default_node_pool  = true
-  initial_node_count        = 0
-  maintenance_start_time    = "02:00"
-  monitoring_service        = "monitoring.googleapis.com/kubernetes"
-  logging_service           = "logging.googleapis.com/kubernetes"
-  basic_auth_username       = ""
-  basic_auth_password       = ""
-  issue_client_certificate  = false
-  default_max_pods_per_node = 110
+  project_id                 = local.common_vars.project_id
+  name                       = local.cluster_name
+  region                     = local.common_vars.region
+  regional                   = false
+  network                    = dependency.network.outputs.network_name
+  subnetwork                 = dependency.network.outputs.subnets_names[0]
+  zones                      = ["europe-west2-c"]
+  ip_range_pods              = "gke-pods-snet"
+  ip_range_services          = "gke-services-snet"
+  create_service_account     = true
+  enable_private_endpoint    = true
+  enable_private_nodes       = true
+  remove_default_node_pool   = true
+  initial_node_count         = 1
+  horizontal_pod_autoscaling = false
+  istio                      = true
+  maintenance_start_time     = "02:00"
+  monitoring_service         = "monitoring.googleapis.com/kubernetes"
+  logging_service            = "logging.googleapis.com/kubernetes"
+  default_max_pods_per_node  = 110
+  master_ipv4_cidr_block     = "172.16.0.0/28"
+
   master_authorized_networks = [
     {
       cidr_block   = "10.0.0.0/8",
@@ -70,36 +75,28 @@ inputs = {
       display_name = "initial-admin-ip"
     }
   ]
-  master_ipv4_cidr_block     = "172.16.0.0/28"
-  horizontal_pod_autoscaling = false
-  kubernetes_version         = "latest"
-  istio                      = true
-  istio_auth                 = "AUTH_MUTUAL_TLS"
 
   node_pools = [
     {
-      name                   = "gke-ec-node-pool"
-      initial_node_count     = 1
-      min_count              = 1
-      max_count              = 3
-      machine_type           = "e2-standard-4"
-      disk_size_gb           = "30"
-      create_service_account = true
+      preemptible        = true
+      name               = "gke-node-pool-ec"
+      initial_node_count = 1
+      min_count          = 1
+      max_count          = 3
+      machine_type       = "e2-standard-4"
+      disk_size_gb       = "50"
+      disk_type          = "pd-ssd"
     }
   ]
 
   node_pools_oauth_scopes = {
-    all = []
-
-    default-node-pool = [
+    gke-node-pool-ec = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]
   }
 
   node_pools_tags = {
-    all = []
-
-    default-node-pool = [
+    gke-node-pool-ec = [
       "gke-private",
       local.cluster_name
     ]

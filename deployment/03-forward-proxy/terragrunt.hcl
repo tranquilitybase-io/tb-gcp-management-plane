@@ -35,10 +35,10 @@ dependency "network" {
 }
 
 inputs = {
-  subnet_name       = dependency.network.outputs.subnets_self_links[0]
-  network_self_link = dependency.network.outputs.network_self_link
-  region            = local.common_vars.region
   project_id        = local.common_vars.project_id
+  region            = local.common_vars.region
+  network_self_link = dependency.network.outputs.network_self_link
+  subnet_name       = dependency.network.outputs.subnets_self_links[0]
 }
 
 skip = local.skip
