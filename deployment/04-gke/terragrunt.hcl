@@ -21,8 +21,9 @@ locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   skip        = lookup(local.common_vars, "skip_gke", false)
 
-  //prefix       = local.common_vars.random_id
-  cluster_name = "tb-mgmt-gke"
+  cluster_name   = "tb-mgmt-gke"
+  node_pool_name = format("%s-%s", local.cluster_name, "node-pool")
+  preemptible    = false
 }
 
 terraform {
@@ -42,10 +43,10 @@ inputs = {
   project_id                 = local.common_vars.project_id
   name                       = local.cluster_name
   region                     = local.common_vars.region
-  regional                   = false
+  regional                   = true
   network                    = dependency.network.outputs.network_name
   subnetwork                 = dependency.network.outputs.subnets_names[0]
-  zones                      = ["europe-west2-c"]
+  #zones                      = ["europe-west2-c"]
   ip_range_pods              = "gke-pods-snet"
   ip_range_services          = "gke-services-snet"
   create_service_account     = true
@@ -63,23 +64,15 @@ inputs = {
 
   master_authorized_networks = [
     {
-      cidr_block   = "10.0.0.0/8",
-      display_name = "mgmt-1"
+      cidr_block   = dependency.network.outputs.subnets_ip_cidr_ranges[0],
+      display_name = "authorized_range"
     },
-    {
-      cidr_block   = "10.0.6.0/24",
-      display_name = "proxy-subnet"
-    },
-    {
-      cidr_block   = "172.16.0.18/32",
-      display_name = "initial-admin-ip"
-    }
   ]
 
   node_pools = [
     {
-      preemptible        = true
-      name               = "gke-node-pool-ec"
+      preemptible        = local.preemptible
+      name               = local.node_pool_name
       initial_node_count = 1
       min_count          = 1
       max_count          = 3
