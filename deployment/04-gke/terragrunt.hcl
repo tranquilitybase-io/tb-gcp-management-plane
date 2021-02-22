@@ -65,7 +65,7 @@ inputs = {
   master_authorized_networks = [
     {
       cidr_block   = dependency.network.outputs.subnets_ip_cidr_ranges[0],
-      display_name = "authorized_range"
+      display_name = dependency.network.outputs.network_name
     },
   ]
 
