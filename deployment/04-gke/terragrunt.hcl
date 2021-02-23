@@ -33,7 +33,7 @@ dependency "network" {
   config_path = "../02-network"
   mock_outputs = {
     network_name           = "network_name"
-    subnets_ip_cidr_ranges = "subnets_ip_cidr_ranges"
+    subnets_ip_cidr_ranges = ["0.0.0.0/0",]
     subnets_names          = ["subnets_names"]
   }
 }
