@@ -23,7 +23,7 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=0.1.0"
+  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=0.1.1"
 }
 
 dependency "network" {

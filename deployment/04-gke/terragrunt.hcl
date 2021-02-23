@@ -18,8 +18,8 @@ include {
 }
 
 locals {
-  common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  skip        = lookup(local.common_vars, "skip_gke", false)
+  common_vars    = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  skip           = lookup(local.common_vars, "skip_gke", false)
   cluster_name   = "tb-mgmt-gke"
   node_pool_name = format("%s-%s", local.cluster_name, "node-pool")
   preemptible    = false
@@ -39,12 +39,12 @@ dependency "network" {
 }
 
 inputs = {
-  project_id                 = local.common_vars.project_id
-  name                       = local.cluster_name
-  region                     = local.common_vars.region
-  regional                   = true
-  network                    = dependency.network.outputs.network_name
-  subnetwork                 = dependency.network.outputs.subnets_names[0]
+  project_id = local.common_vars.project_id
+  name       = local.cluster_name
+  region     = local.common_vars.region
+  regional   = true
+  network    = dependency.network.outputs.network_name
+  subnetwork = dependency.network.outputs.subnets_names[0]
   #zones                      = ["europe-west2-c"]
   ip_range_pods              = "gke-pods-snet"
   ip_range_services          = "gke-services-snet"

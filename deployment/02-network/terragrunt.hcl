@@ -27,7 +27,7 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-network-service.git?ref=v0.0.1"
+  source = "github.com/tranquilitybase-io/tf-gcp-network-service.git?ref=v0.1.0"
 }
 
 inputs = {
