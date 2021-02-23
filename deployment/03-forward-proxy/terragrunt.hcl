@@ -19,8 +19,8 @@ include {
 
 locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  preemptible = lookup(local.common_vars, "preemptible", false)
-  skip        = lookup(local.common_vars, "skip_forward_proxy", false)
+  preemptible = tobool(lookup(local.common_vars, "preemptible", false))
+  skip        = tobool(lookup(local.common_vars, "skip_forward_proxy", false))
 }
 
 terraform {

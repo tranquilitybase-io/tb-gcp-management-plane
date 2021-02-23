@@ -21,8 +21,8 @@ locals {
   common_vars    = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   cluster_name   = "tb-mgmt-gke"
   node_pool_name = format("%s-%s", local.cluster_name, "node-pool")
-  preemptible    = lookup(local.common_vars, "preemptible", false)
-  skip           = lookup(local.common_vars, "skip_gke", false)
+  preemptible    = tobool(lookup(local.common_vars, "preemptible", false))
+  skip           = tobool(lookup(local.common_vars, "skip_gke", false))
 }
 
 terraform {
