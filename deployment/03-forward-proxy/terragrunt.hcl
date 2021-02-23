@@ -19,6 +19,7 @@ include {
 
 locals {
   common_vars = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
+  preemptible = lookup(local.common_vars, "preemptible", false)
   skip        = lookup(local.common_vars, "skip_forward_proxy", false)
 }
 
@@ -35,6 +36,7 @@ dependency "network" {
 }
 
 inputs = {
+  preemptible       = local.preemptible
   project_id        = local.common_vars.project_id
   region            = local.common_vars.region
   network_self_link = dependency.network.outputs.network_self_link

@@ -9,9 +9,17 @@ lint:
 setup:
 	@source scripts/setup.sh
 
+.PHONY: init
+init:
+	@source scripts/tg-wrapper.sh init
+
 .PHONY: validate
 validate:
 	@source scripts/tg-wrapper.sh validate
+
+.PHONY: refresh
+refresh:
+	@source scripts/tg-wrapper.sh refresh
 
 .PHONY: plan
 plan:
