@@ -20,7 +20,7 @@ include {
 locals {
   cluster_name   = "tb-mgmt-gke"
   common_vars    = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
-  node_pool_name = format("%s-%s", local.cluster_name, "node-pool")
+  node_pool_name = "node-pool-1"
   preemptible    = tobool(lookup(local.common_vars, "preemptible", false))
   skip           = tobool(lookup(local.common_vars, "skip_gke", false))
 }
@@ -33,33 +33,32 @@ dependency "network" {
   config_path = "../02-network"
   mock_outputs = {
     network_name           = "network_name"
-    subnets_ip_cidr_ranges = ["0.0.0.0/0",]
+    subnets_ip_cidr_ranges = ["10.0.0.0/8"]
     subnets_names          = ["subnets_names"]
   }
 }
 
 inputs = {
-  #zones                      = ["europe-west2-c"]
-  create_service_account     = true
-  default_max_pods_per_node  = 110
+  create_service_account = true
+  #default_max_pods_per_node  = 110
   enable_private_endpoint    = true
   enable_private_nodes       = true
   horizontal_pod_autoscaling = false
-  initial_node_count         = 1
+  initial_node_count         = 0
   ip_range_pods              = "gke-pods-snet"
   ip_range_services          = "gke-services-snet"
   istio                      = true
-  logging_service            = "logging.googleapis.com/kubernetes"
-  maintenance_start_time     = "02:00"
-  master_ipv4_cidr_block     = "172.16.0.0/28"
-  monitoring_service         = "monitoring.googleapis.com/kubernetes"
-  name                       = local.cluster_name
-  network                    = dependency.network.outputs.network_name
-  region                     = local.common_vars.region
-  regional                   = true
-  remove_default_node_pool   = true
-  subnetwork                 = dependency.network.outputs.subnets_names[0]
-  project_id                 = local.common_vars.project_id
+  #logging_service            = "logging.googleapis.com/kubernetes"
+  #maintenance_start_time     = "02:00"
+  master_ipv4_cidr_block = "172.16.0.0/28"
+  #monitoring_service         = "monitoring.googleapis.com/kubernetes"
+  name                     = local.cluster_name
+  network                  = dependency.network.outputs.network_name
+  region                   = local.common_vars.region
+  regional                 = true
+  remove_default_node_pool = true
+  subnetwork               = dependency.network.outputs.subnets_names[0]
+  project_id               = local.common_vars.project_id
 
   master_authorized_networks = [
     {
@@ -82,14 +81,13 @@ inputs = {
   ]
 
   node_pools_oauth_scopes = {
-    gke-node-pool-ec = [
+    node-pool-1 = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]
   }
 
   node_pools_tags = {
-    gke-node-pool-ec = [
-      "gke-private",
+    node-pool-1 = [
       local.cluster_name
     ]
   }

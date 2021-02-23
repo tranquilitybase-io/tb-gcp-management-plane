@@ -24,13 +24,13 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=bugfix-1"
+  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=v0.1.2"
 }
 
 dependency "network" {
   config_path = "../02-network"
   mock_outputs = {
-    network_name = "network_name"
+    network_name  = "network_name"
     subnets_names = ["subnets_names"]
   }
 }
