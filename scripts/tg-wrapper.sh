@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+#makeset -eo pipefail
 
 if [ -z "$1" ]
   then

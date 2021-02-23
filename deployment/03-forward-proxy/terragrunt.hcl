@@ -30,16 +30,16 @@ terraform {
 dependency "network" {
   config_path = "../02-network"
   mock_outputs = {
-    subnets_self_links = ["subnet_self_link"]
     network_self_link  = "network_self_link"
+    subnets_self_links = ["subnet_self_link"]
   }
 }
 
 inputs = {
+  network_self_link = "123" #dependency.network.outputs.network_self_link
   preemptible       = local.preemptible
   project_id        = local.common_vars.project_id
   region            = local.common_vars.region
-  network_self_link = dependency.network.outputs.network_self_link
   subnet_name       = dependency.network.outputs.subnets_self_links[0]
 }
 

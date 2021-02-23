@@ -8,16 +8,15 @@
 ## Usage
 
 ### Pre-Requisites
-
+- If running on a local workstation execute ```export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)```
 - Create a project for deployment
 - Clone git repo
-- Enable googleapis
 - Create deployment/common_vars.json file, replacing _PROJECT_ with your GCP Project ID
 
 ```hcl
 gcloud services enable compute
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
-git checkout mvp1
+
  
 cat <<EOF > deployment/common_vars.json
 {
@@ -25,7 +24,7 @@ cat <<EOF > deployment/common_vars.json
   "region": "europe-west2"
 }
 EOF
-source ./scripts/init.sh
+source ./scripts/config.sh
 make setup
 
 ```
@@ -48,13 +47,9 @@ gcloud compute ssh $(gcloud compute instances list \
 
 ```hcl
 cd tb-gcp-management-plane-architecture
-source ./scripts/init.sh
+source ./scripts/config.sh
 gcloud container clusters get-credentials tb-mgmt-gke --region $TG_REGION
  
 env HTTPS_PROXY=localhost:3128 kubectl get nodes
 env HTTPS_PROXY=localhost:3128 kubectl cluster-info
 ```
-
-
-
-

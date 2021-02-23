@@ -32,3 +32,7 @@ apply:
 .PHONY: destroy
 destroy:
 	@source scripts/tg-wrapper.sh destroy
+
+.PHONY: clean
+clean:
+	@source scripts/clean.sh

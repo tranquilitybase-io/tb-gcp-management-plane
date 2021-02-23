@@ -8,10 +8,12 @@
 **/.vscode/*
 # Local .terraform directories
 **/.terraform/*
+**/.terragrunt-cache/*
 # Terraform state
 *.tfstate
 *.tfstate.*
 **/terraform.tfstate.d/*
+**/.terraform.lock.hcl
 # Terraform plan outputs
 *.plan
 # Terraform tfvars
