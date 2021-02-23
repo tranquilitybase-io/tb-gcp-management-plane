@@ -18,8 +18,8 @@ include {
 }
 
 locals {
-  common_vars    = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   cluster_name   = "tb-mgmt-gke"
+  common_vars    = jsondecode(file("${get_parent_terragrunt_dir()}/common_vars.json"))
   node_pool_name = format("%s-%s", local.cluster_name, "node-pool")
   preemptible    = tobool(lookup(local.common_vars, "preemptible", false))
   skip           = tobool(lookup(local.common_vars, "skip_gke", false))
@@ -39,27 +39,27 @@ dependency "network" {
 }
 
 inputs = {
-  project_id = local.common_vars.project_id
-  name       = local.cluster_name
-  region     = local.common_vars.region
-  regional   = true
-  network    = dependency.network.outputs.network_name
-  subnetwork = dependency.network.outputs.subnets_names[0]
   #zones                      = ["europe-west2-c"]
-  ip_range_pods              = "gke-pods-snet"
-  ip_range_services          = "gke-services-snet"
   create_service_account     = true
+  default_max_pods_per_node  = 110
   enable_private_endpoint    = true
   enable_private_nodes       = true
-  remove_default_node_pool   = true
-  initial_node_count         = 1
   horizontal_pod_autoscaling = false
+  initial_node_count         = 1
+  ip_range_pods              = "gke-pods-snet"
+  ip_range_services          = "gke-services-snet"
   istio                      = true
-  maintenance_start_time     = "02:00"
-  monitoring_service         = "monitoring.googleapis.com/kubernetes"
   logging_service            = "logging.googleapis.com/kubernetes"
-  default_max_pods_per_node  = 110
+  maintenance_start_time     = "02:00"
   master_ipv4_cidr_block     = "172.16.0.0/28"
+  monitoring_service         = "monitoring.googleapis.com/kubernetes"
+  name                       = local.cluster_name
+  network                    = dependency.network.outputs.network_name
+  region                     = local.common_vars.region
+  regional                   = true
+  remove_default_node_pool   = true
+  subnetwork                 = dependency.network.outputs.subnets_names[0]
+  project_id                 = local.common_vars.project_id
 
   master_authorized_networks = [
     {
