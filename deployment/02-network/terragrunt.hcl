@@ -31,9 +31,9 @@ terraform {
 }
 
 inputs = {
+  network_name = local.network_name
   project_id   = local.project_id
   region       = local.region
-  network_name = local.network_name
   subnets = [
     {
       subnet_name               = local.subnet_name
