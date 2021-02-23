@@ -8,8 +8,9 @@
 ## Usage
 
 ### Pre-Requisites
-- If running on a local workstation execute ```export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)```
 - Create a project for deployment
+- Gcloud authentication setup
+- If running on a local workstation execute ```export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)```
 - Clone git repo
 - Create deployment/common_vars.json file, replacing _PROJECT_ with your GCP Project ID
 

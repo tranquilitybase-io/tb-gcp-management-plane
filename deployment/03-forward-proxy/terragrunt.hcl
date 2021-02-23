@@ -36,7 +36,7 @@ dependency "network" {
 }
 
 inputs = {
-  network_self_link = "123" #dependency.network.outputs.network_self_link
+  network_self_link = dependency.network.outputs.network_self_link
   preemptible       = local.preemptible
   project_id        = local.common_vars.project_id
   region            = local.common_vars.region
