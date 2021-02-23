@@ -39,8 +39,7 @@ dependency "network" {
 }
 
 inputs = {
-  create_service_account = true
-  #default_max_pods_per_node  = 110
+  create_service_account     = true
   enable_private_endpoint    = true
   enable_private_nodes       = true
   horizontal_pod_autoscaling = false
@@ -48,17 +47,14 @@ inputs = {
   ip_range_pods              = "gke-pods-snet"
   ip_range_services          = "gke-services-snet"
   istio                      = true
-  #logging_service            = "logging.googleapis.com/kubernetes"
-  #maintenance_start_time     = "02:00"
-  master_ipv4_cidr_block = "172.16.0.0/28"
-  #monitoring_service         = "monitoring.googleapis.com/kubernetes"
-  name                     = local.cluster_name
-  network                  = dependency.network.outputs.network_name
-  region                   = local.common_vars.region
-  regional                 = true
-  remove_default_node_pool = true
-  subnetwork               = dependency.network.outputs.subnets_names[0]
-  project_id               = local.common_vars.project_id
+  master_ipv4_cidr_block     = "172.16.0.0/28"
+  name                       = local.cluster_name
+  network                    = dependency.network.outputs.network_name
+  region                     = local.common_vars.region
+  regional                   = true
+  remove_default_node_pool   = true
+  subnetwork                 = dependency.network.outputs.subnets_names[0]
+  project_id                 = local.common_vars.project_id
 
   master_authorized_networks = [
     {
