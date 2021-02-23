@@ -24,7 +24,7 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=v0.1.1"
+  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=bugfix-1"
 }
 
 dependency "network" {
@@ -36,11 +36,11 @@ dependency "network" {
 }
 
 inputs = {
-  network_self_link = dependency.network.outputs.network_name
-  preemptible       = local.preemptible
-  project_id        = local.common_vars.project_id
-  region            = local.common_vars.region
-  subnet_name       = dependency.network.outputs.subnets_names[0]
+  network_name = dependency.network.outputs.network_name
+  preemptible  = local.preemptible
+  project_id   = local.common_vars.project_id
+  region       = local.common_vars.region
+  subnet_name  = dependency.network.outputs.subnets_names[0]
 }
 
 skip = local.skip
