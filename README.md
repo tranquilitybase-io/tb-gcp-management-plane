@@ -55,6 +55,9 @@ gcloud compute ssh $PROXY_NAME \
      --tunnel-through-iap \
      -- -L 3128:localhost:3128
 ```
+
+Note: If prompted to create new SSH keypair press ENTER twice.
+
 Execute the following in a **new** Cloud Shell terminal:
 ```bash
 cd tb-gcp-management-plane-architecture
