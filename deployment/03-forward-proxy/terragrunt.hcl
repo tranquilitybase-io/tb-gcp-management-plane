@@ -41,6 +41,7 @@ inputs = {
   project_id   = local.common_vars.project_id
   region       = local.common_vars.region
   subnet_name  = dependency.network.outputs.subnets_names[0]
+  target_tags  = ["allow-iap-ssh"]
 }
 
 skip = local.skip
