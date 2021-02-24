@@ -21,7 +21,6 @@ The following diagram outlines all components deployed via the Management Plane:
 Execute the following in a Cloud Shell terminal:
 
 ```bash
-gcloud services enable compute
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
 
 cat <<EOF > deployment/common_vars.json
@@ -35,6 +34,8 @@ cat <<EOF > deployment/common_vars.json
 EOF
 source ./scripts/config.sh
 make setup
+gcloud services enable compute.googleapis.com
+gcloud services enable iap.googleapis.com
 ```
 Replace [PROJECT] in deployment/common_vars.json with the GCP Project ID.
 
@@ -42,10 +43,12 @@ Replace [PROJECT] in deployment/common_vars.json with the GCP Project ID.
 Execute the following in a Cloud Shell terminal:
 ```bash
 make apply
- 
-gcloud compute ssh $(gcloud compute instances list \
-     --project $TG_PROJECT --format="value(name)" --filter=forward) \
-     --zone $(gcloud compute instances list --project $TG_PROJECT --format="value(zone)" --filter=forward) \
+
+export PROXY_NAME=$(gcloud compute instances list --project $TG_PROJECT --format="value(name)" --filter=forward)
+export PROXY_ZONE=$(gcloud compute instances list --project $TG_PROJECT --format="value(zone)" --filter=forward)
+
+gcloud compute ssh $PROXY_NAME \
+     --zone $PROXY_ZONE \
      --project $TG_PROJECT \
      --tunnel-through-iap \
      -- -L 3128:localhost:3128
