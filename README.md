@@ -22,6 +22,8 @@ Execute the following in a Cloud Shell terminal:
 
 ```bash
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
+# git checkout branch #if required
+cd tb-gcp-management-plane-architecture
 
 cat <<EOF > deployment/common_vars.json
 {
