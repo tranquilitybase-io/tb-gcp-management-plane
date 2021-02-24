@@ -18,7 +18,7 @@ Execute the following in a Cloud Shell terminal:
 gcloud services enable compute
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
 
- cat <<EOF > deployment/common_vars.json
+cat <<EOF > deployment/common_vars.json
 {
   "project_id": "[PROJECT]",
   "region": "europe-west2",
