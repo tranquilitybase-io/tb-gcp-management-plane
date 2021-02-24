@@ -1,11 +1,11 @@
 # tb-gcp-management-plane-architecture
 
 ## Dependencies
-* Gcloud SDK (already installed in cloud shell)
-* Git (already installed in cloud shell)
-* Jq (already installed in cloud shell)
-* Terraform (automatically installed by make setup)
-* Terragrunt (automatically installed by make setup)
+* Gcloud SDK (pre-installed in Cloud Shell)
+* Git (pre-installed in Cloud Shell)
+* Jq (pre-installed in Cloud Shell)
+* Terraform (installed by make setup)
+* Terragrunt (installed by make setup)
 
 ## Pre-Requisites
 1. Cloud Shell - https://shell.cloud.google.com
