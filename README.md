@@ -32,7 +32,7 @@ make setup
 ```
 Replace [PROJECT] in deployment/common_vars.json with the GCP Project ID.
 
-## Deployment
+## Deploy
 Execute the following in a Cloud Shell terminal:
 ```bash
 make apply
@@ -44,8 +44,7 @@ gcloud compute ssh $(gcloud compute instances list \
      --tunnel-through-iap \
      -- -L 3128:localhost:3128
 ```
-Execute the following in a *new* Cloud Shell terminal:
-
+Execute the following in a **new** Cloud Shell terminal:
 ```bash
 cd tb-gcp-management-plane-architecture
 source ./scripts/config.sh
@@ -53,4 +52,12 @@ gcloud container clusters get-credentials tb-mgmt-gke --region $TG_REGION
  
 env HTTPS_PROXY=localhost:3128 kubectl get nodes
 env HTTPS_PROXY=localhost:3128 kubectl cluster-info
+```
+
+## Destroy
+Execute the following in a Cloud Shell terminal:
+```bash
+cd tb-gcp-management-plane-architecture
+source ./scripts/config.sh
+make destroy
 ```
