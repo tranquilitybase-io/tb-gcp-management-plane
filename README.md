@@ -1,40 +1,40 @@
-## Requirements
+# tb-gcp-management-plane-architecture
 
-| Name | Version |
-|------|---------|
-| terraform | >=0.13.4,<0.15 |
-| google | <4.0,>= 2.12 |
+## Dependencies
+* Gcloud SDK (already installed in cloud shell)
+* Git (already installed in cloud shell)
+* Jq (already installed in cloud shell)
+* Terraform (automatically installed by make setup)
+* Terragrunt (automatically installed by make setup)
 
-## Usage
+## Pre-Requisites
+1. Cloud Shell - https://shell.cloud.google.com
+1. GCP Project for deployment
 
-### Pre-Requisites
-- Create a project for deployment
-- Gcloud authentication setup
-- If running on a local workstation execute ```export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)```
-- Clone git repo
-- Create deployment/common_vars.json file, replacing _PROJECT_ with your GCP Project ID
+## Setup
+Execute the following in a Cloud Shell terminal:
 
-```hcl
+```bash
 gcloud services enable compute
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
 
- 
-cat <<EOF > deployment/common_vars.json
+ cat <<EOF > deployment/common_vars.json
 {
-  "project_id": "_PROJECT_",
-  "region": "europe-west2"
+  "project_id": "[PROJECT]",
+  "region": "europe-west2",
+  "preemptive": true,
+  "skip_forward_proxy": false,
+  "skip_gke": false
 }
 EOF
 source ./scripts/config.sh
 make setup
-
 ```
+Replace [PROJECT] in deployment/common_vars.json with the GCP Project ID.
 
-### Deployment
-
-- Execute the following in a terminal:
-
-```hcl
+## Deployment
+Execute the following in a Cloud Shell terminal:
+```bash
 make apply
  
 gcloud compute ssh $(gcloud compute instances list \
@@ -44,9 +44,9 @@ gcloud compute ssh $(gcloud compute instances list \
      --tunnel-through-iap \
      -- -L 3128:localhost:3128
 ```
-- In a new terminal execute the following:
+Execute the following in a *new* Cloud Shell terminal:
 
-```hcl
+```bash
 cd tb-gcp-management-plane-architecture
 source ./scripts/config.sh
 gcloud container clusters get-credentials tb-mgmt-gke --region $TG_REGION
