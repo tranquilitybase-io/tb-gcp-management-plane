@@ -37,6 +37,7 @@ EOF
 source ./scripts/config.sh
 make setup
 gcloud services enable compute.googleapis.com
+gcloud services enable container.googleapis.com
 gcloud services enable iap.googleapis.com
 ```
 Replace [PROJECT] in deployment/common_vars.json with the GCP Project ID.
