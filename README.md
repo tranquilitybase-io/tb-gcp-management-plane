@@ -1,5 +1,11 @@
 # tb-gcp-management-plane-architecture
 
+## Architecture
+
+The following diagram outlines all components deployed via the Management Plane:
+
+![architecture](docs/architecture.png)
+
 ## Dependencies
 * Gcloud SDK (pre-installed in Cloud Shell)
 * Git (pre-installed in Cloud Shell)
