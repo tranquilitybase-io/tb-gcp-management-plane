@@ -27,10 +27,50 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-network-service.git?ref=v0.1.1"
+  source = "github.com/tranquilitybase-io/tf-gcp-network-service.git?ref=v0.1.2"
 }
 
 inputs = {
+  firewall_custom_rules = {
+    "allow-iap-ssh" : {
+      "action" : "allow",
+      "description" : "Allow inbound SSH connections from IAP",
+      "direction" : "INGRESS",
+      "extra_attributes" : {},
+      "ranges" : [
+        "35.235.240.0/20"
+      ],
+      "rules" : [
+        {
+          ports : ["22"],
+          protocol : "tcp"
+        }
+      ],
+      "sources" : null,
+      "targets" : ["allow-iap-ssh"],
+      "use_service_accounts" : false
+    },
+    "allow-proxy-healthcheck" : {
+      "action" : "allow",
+      "description" : "Allow incoming healthcheck traffic",
+      "direction" : "INGRESS",
+      "extra_attributes" : {},
+      "ranges" : [
+        "130.211.0.0/22",
+        "35.191.0.0/16"
+      ],
+      "rules" : [
+        {
+          ports : ["3128"],
+          protocol : "tcp"
+        }
+      ],
+      "sources" : null,
+      "targets" : ["allow-proxy-healthcheck"],
+      "use_service_accounts" : false
+    }
+  }
+
   network_name = local.network_name
   project_id   = local.project_id
   region       = local.region

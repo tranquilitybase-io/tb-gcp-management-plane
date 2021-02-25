@@ -2,7 +2,7 @@
 
 ## Architecture
 
-The following diagram outlines all components deployed via the Management Plane:
+The following diagram outlines the components of the Tranquility Base Management Plane:
 
 ![architecture](docs/architecture.png)
 
@@ -18,11 +18,11 @@ The following diagram outlines all components deployed via the Management Plane:
 1. GCP Project for deployment
 
 ## Setup
-Execute the following in a Cloud Shell terminal:
+Execute the following in a Cloud Shell terminal and checkout the branch/tag as required:
 
 ```bash
 git clone https://github.com/tranquilitybase-io/tb-gcp-management-plane-architecture.git
-# git checkout branch #if required
+# git checkout branch/tag
 cd tb-gcp-management-plane-architecture
 
 cat <<EOF > deployment/common_vars.json

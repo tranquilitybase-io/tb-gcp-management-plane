@@ -24,7 +24,7 @@ locals {
 }
 
 terraform {
-  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=v0.1.3"
+  source = "github.com/tranquilitybase-io/tf-gcp-forward-proxy-service?ref=v0.1.4"
 }
 
 dependency "network" {
@@ -41,7 +41,10 @@ inputs = {
   project_id   = local.common_vars.project_id
   region       = local.common_vars.region
   subnet_name  = dependency.network.outputs.subnets_names[0]
-  target_tags  = ["allow-iap-ssh"]
+  tags = [
+    "allow-iap-ssh",
+    "allow-proxy-healthcheck"
+  ]
 }
 
 skip = local.skip
