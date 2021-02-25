@@ -29,7 +29,7 @@ cat <<EOF > deployment/common_vars.json
 {
   "project_id": "[PROJECT]",
   "region": "europe-west2",
-  "preemptive": true,
+  "preemptible": true,
   "skip_forward_proxy": false,
   "skip_gke": false
 }
