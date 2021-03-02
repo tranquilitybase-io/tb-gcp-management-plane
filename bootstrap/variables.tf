@@ -40,3 +40,33 @@ variable "activate_apis_management_plane" {
     "iap.googleapis.com",
   ]
 }
+
+variable "management_plane_folder_name" {
+  description = "Display name for created folder"
+  type        = string
+  default     = "tb-management-plane"
+}
+
+variable "management_plane_project_name" {
+  description = "Display name for created management-plane project"
+  type        = string
+  default     = "tb=management-plane"
+}
+
+variable "bootstrap_project_name" {
+  description = "Display name for created bootstrap project"
+  type        = string
+  default     = "tf-bootstrap"
+}
+
+variable "billing_id" {
+  description = "The ID of the billing account to associate this project with"
+  type        = string
+  default     = null
+}
+
+variable "parent" {
+  description = "The resource name of the parent Folder or Organization. Must be of the form folders/folder_id or organizations/org_id"
+  type        = string
+}
+

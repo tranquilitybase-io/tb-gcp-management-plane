@@ -18,18 +18,22 @@
 
 module "project-services-bootstrap" {
   source                     = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                    = "10.1.1"
+  version                    = "~> 10.1.1"
   activate_apis              = var.activate_apis_bootstrap
   disable_dependent_services = false
   disable_on_destroy         = false
   project_id                 = var.project_id_bootstrap
+
+  depends_on = [module.project-bootstrap]
 }
 
 module "project-services-management-plane" {
   source                     = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                    = "10.1.1"
+  version                    = "~> 10.1.1"
   activate_apis              = var.activate_apis_management_plane
   disable_dependent_services = false
   disable_on_destroy         = false
   project_id                 = var.project_id_management_plane
+
+  depends_on = [module.project-management-plane]
 }
