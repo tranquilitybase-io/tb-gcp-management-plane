@@ -11,17 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-###
-# Generate random string id
-###
-
-resource "random_string" "suffix" {
-  length  = 5
-  special = false
-  upper   = false
-}
-
-locals {
-  source_repo_name = "tb-management-plane"
-}

@@ -15,7 +15,7 @@
 locals {
   unique_id                     = random_string.suffix.result
   management_plane_folder_name  = format("%s-%s", var.management_plane_folder_name, local.unique_id)
-  management_plane_project_name = format("%s-%s", var.management_plane_folder_name, local.unique_id)
+  management_plane_project_name = format("%s-%s", var.management_plane_project_name, local.unique_id)
   bootstrap_project_name        = format("%s-%s", var.bootstrap_project_name, local.unique_id)
 }
 
