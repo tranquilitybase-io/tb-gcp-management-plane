@@ -14,7 +14,7 @@
 
 locals {
   unique_id                     = random_string.suffix.result
-  management_plane_folder_name  = format("%s-%s", var.management_plane_folder_name, local.unique_id)
+  #management_plane_folder_name  = format("%s-%s", var.management_plane_folder_name, local.unique_id)
   management_plane_project_name = format("%s-%s", var.management_plane_project_name, local.unique_id)
   bootstrap_project_name        = format("%s-%s", var.bootstrap_project_name, local.unique_id)
 }
@@ -22,7 +22,7 @@ locals {
 module "folders" {
   source  = "terraform-google-modules/folders/google"
   version = "~> 3.0.0"
-  names   = [local.management_plane_folder_name, ]
+  names   = [var.management_plane_folder_name,]
   parent  = var.parent
 }
 
@@ -32,6 +32,7 @@ module "project-bootstrap" {
   billing_account = var.billing_id
   name            = local.bootstrap_project_name
   parent          = module.folders.id
+  prefix          = "tf"
 }
 
 module "project-management-plane" {
@@ -40,4 +41,5 @@ module "project-management-plane" {
   billing_account = var.billing_id
   name            = local.management_plane_project_name
   parent          = module.folders.id
+  prefix          = "tb"
 }

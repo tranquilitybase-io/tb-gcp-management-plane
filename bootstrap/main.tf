@@ -21,7 +21,3 @@ resource "random_string" "suffix" {
   special = false
   upper   = false
 }
-
-locals {
-  source_repo_name = "tb-management-plane"
-}

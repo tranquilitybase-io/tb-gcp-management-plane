@@ -1,0 +1,15 @@
+---
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+    entrypoint: 'sh'
+    args:
+      -  '-c'
+      - |-
+        echo "**********************"
+
+        echo "${REPO_NAME}"
+
+        echo "${BRANCH_NAME}"
+
+        echo "${COMMIT_SHA}"
+        echo "**********************"
