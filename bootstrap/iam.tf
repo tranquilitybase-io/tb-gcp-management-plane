@@ -13,8 +13,8 @@
 # limitations under the License.
 
 locals {
-  sa_name                = format("%s-%s", var.service_account_prefix, local.unique_id)
   project_roles_bindings = [for role in var.project_roles : format("%s=>%s", var.project_id_bootstrap, role)]
+  sa_name                = format("%s-%s", var.service_account_prefix, local.unique_id)
 }
 
 ###
