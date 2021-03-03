@@ -13,20 +13,25 @@
 # limitations under the License.
 
 locals {
-  project_roles_bindings = [for role in var.project_roles : format("%s=>%s", var.project_id_bootstrap, role)]
-  sa_name                = format("%s-%s", var.service_account_prefix, local.unique_id)
+  bootstrap_sa_name = format("%s-%s", var.service_account_prefix, local.unique_id)
 }
 
 ###
 #  Create bootstrap service account
 ###
 
-module "service_accounts" {
-  source        = "terraform-google-modules/service-accounts/google"
-  version       = "~> 3.0.1"
-  description   = var.description
-  display_name  = var.display_name
-  names         = [local.sa_name]
-  project_roles = local.project_roles_bindings
-  project_id    = module.project-bootstrap.project_id
+resource "google_service_account" "bootstrap_sa" {
+  project      = module.project-bootstrap.project_id
+  description  = var.description
+  account_id   = local.bootstrap_project_name
+  display_name = var.display_name
+
+  depends_on = [module.project-services-bootstrap]
+}
+
+resource "google_project_iam_member" "bootstrap_sa_iam" {
+  for_each = toset(var.project_roles)
+  member   = "serviceAccount:${google_service_account.bootstrap_sa.email}"
+  project  = module.project-bootstrap.project_id
+  role     = each.value
 }

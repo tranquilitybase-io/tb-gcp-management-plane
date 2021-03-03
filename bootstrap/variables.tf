@@ -61,7 +61,7 @@ variable "bootstrap_project_name" {
   default     = "bootstrap"
 }
 
-variable "billing_id" {
+variable "billing_account_id" {
   description = "The ID of the billing account to associate this project with"
   type        = string
   default     = null

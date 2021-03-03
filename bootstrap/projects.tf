@@ -22,11 +22,9 @@ locals {
 #  Create management plane folder
 ###
 
-module "folders" {
-  source  = "terraform-google-modules/folders/google"
-  version = "~> 3.0.0"
-  names   = [local.management_plane_folder_name, ]
-  parent  = var.parent
+resource "google_folder" "tb_managment_plane" {
+  display_name = local.management_plane_folder_name
+  parent       = var.parent
 }
 
 ###
@@ -36,9 +34,9 @@ module "folders" {
 module "project-bootstrap" {
   source          = "terraform-google-modules/project-factory/google//modules/fabric-project"
   version         = "~> 10.1.1"
-  billing_account = var.billing_id
+  billing_account = var.billing_account_id
   name            = local.bootstrap_project_name
-  parent          = module.folders.id
+  parent          = google_folder.tb_managment_plane.id
   prefix          = "tf"
 }
 
@@ -49,8 +47,8 @@ module "project-bootstrap" {
 module "project-management-plane" {
   source          = "terraform-google-modules/project-factory/google//modules/fabric-project"
   version         = "~> 10.1.1"
-  billing_account = var.billing_id
+  billing_account = var.billing_account_id
   name            = local.management_plane_project_name
-  parent          = module.folders.id
+  parent          = google_folder.tb_managment_plane.id
   prefix          = "tb"
 }
