@@ -21,3 +21,7 @@ resource "random_string" "suffix" {
   special = false
   upper   = false
 }
+
+locals {
+  unique_id                     = random_string.suffix.result
+}

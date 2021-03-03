@@ -13,18 +13,25 @@
 # limitations under the License.
 
 locals {
-  unique_id                     = random_string.suffix.result
-  #management_plane_folder_name  = format("%s-%s", var.management_plane_folder_name, local.unique_id)
+  management_plane_folder_name  = format("%s-%s", var.management_plane_folder_name, local.unique_id)
   management_plane_project_name = format("%s-%s", var.management_plane_project_name, local.unique_id)
   bootstrap_project_name        = format("%s-%s", var.bootstrap_project_name, local.unique_id)
 }
 
+###
+#  Create management plane folder
+###
+
 module "folders" {
   source  = "terraform-google-modules/folders/google"
   version = "~> 3.0.0"
-  names   = [var.management_plane_folder_name,]
+  names   = [local.management_plane_folder_name,]
   parent  = var.parent
 }
+
+###
+#  Create bootstrap project
+###
 
 module "project-bootstrap" {
   source          = "terraform-google-modules/project-factory/google//modules/fabric-project"
@@ -34,6 +41,10 @@ module "project-bootstrap" {
   parent          = module.folders.id
   prefix          = "tf"
 }
+
+###
+#  Create management plane project
+###
 
 module "project-management-plane" {
   source          = "terraform-google-modules/project-factory/google//modules/fabric-project"

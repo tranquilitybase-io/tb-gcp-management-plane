@@ -73,3 +73,37 @@ variable "parent" {
   default     = null
 }
 
+variable "service_account_prefix" {
+  description = "Name prefix to use for service account"
+  type        = string
+  default     = "bootstrap-sa"
+}
+
+variable "display_name" {
+  description = "The display name of the service account"
+  type        = string
+  default     = "Bootstrap Service Account (managed by terraform)"
+}
+
+variable "description" {
+  description = "Description of the created service accounts"
+  type        = string
+  default     = "Bootstrap custom Service Account"
+}
+
+variable "project_roles" {
+  description = "List of project-wide roles to assign to the service account"
+  type        = list(string)
+  default = [
+    "roles/resourcemanager.folderCreator",
+    "roles/resourcemanager.projectCreator",
+    "roles/resourcemanager.projectDeleter",
+    "roles/billing.projectManager",
+    "roles/compute.networkAdmin",
+    "roles/compute.networkUser",
+    "roles/source.repos.create",
+    "roles/source.repos.update",
+    "roles/logging.logWriter",
+    "roles/logging.configWriter"
+  ]
+}

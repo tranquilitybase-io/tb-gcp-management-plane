@@ -13,27 +13,23 @@
 # limitations under the License.
 
 ###
-#  Enable Project APIs
+#  Enable project apis
 ###
 
 module "project-services-bootstrap" {
-  source                      = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                     = "~> 10.1.1"
-  activate_apis               = var.activate_apis_bootstrap
-  disable_dependent_services  = false
-  disable_services_on_destroy = false
-  project_id                  = module.project-bootstrap.project_id
-
-  depends_on = [module.project-bootstrap]
+  source                     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version                    = "~> 10.1.1"
+  activate_apis              = var.activate_apis_bootstrap
+  disable_dependent_services = false
+  disable_on_destroy         = false
+  project_id                 = module.project-bootstrap.project_id
 }
 
 module "project-services-management-plane" {
-  source                      = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                     = "~> 10.1.1"
-  activate_apis               = var.activate_apis_management_plane
-  disable_dependent_services  = false
-  disable_services_on_destroy = false
-  project_id                  = module.project-management-plane.project_id
-
-  depends_on = [module.project-management-plane]
+  source                     = "terraform-google-modules/project-factory/google//modules/project_services"
+  version                    = "~> 10.1.1"
+  activate_apis              = var.activate_apis_management_plane
+  disable_dependent_services = false
+  disable_on_destroy         = false
+  project_id                 = module.project-management-plane.project_id
 }
