@@ -22,7 +22,7 @@ locals {
 #  Create management plane folder
 ###
 
-resource "google_folder" "tb_managment_plane" {
+resource "google_folder" "tb_management_plane" {
   display_name = local.management_plane_folder_name
   parent       = var.parent
 }
@@ -36,7 +36,7 @@ module "project-bootstrap" {
   version         = "~> 10.1.1"
   billing_account = var.billing_account_id
   name            = local.bootstrap_project_name
-  parent          = google_folder.tb_managment_plane.id
+  parent          = google_folder.tb_management_plane.id
   prefix          = "tf"
 }
 
@@ -49,6 +49,6 @@ module "project-management-plane" {
   version         = "~> 10.1.1"
   billing_account = var.billing_account_id
   name            = local.management_plane_project_name
-  parent          = google_folder.tb_managment_plane.id
+  parent          = google_folder.tb_management_plane.id
   prefix          = "tb"
 }
