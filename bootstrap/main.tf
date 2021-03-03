@@ -23,5 +23,5 @@ resource "random_string" "suffix" {
 }
 
 locals {
-  unique_id                     = random_string.suffix.result
+  unique_id = random_string.suffix.result
 }

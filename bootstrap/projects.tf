@@ -25,7 +25,7 @@ locals {
 module "folders" {
   source  = "terraform-google-modules/folders/google"
   version = "~> 3.0.0"
-  names   = [local.management_plane_folder_name,]
+  names   = [local.management_plane_folder_name, ]
   parent  = var.parent
 }
 
