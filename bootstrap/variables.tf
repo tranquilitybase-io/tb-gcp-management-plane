@@ -95,15 +95,8 @@ variable "project_roles" {
   description = "List of project-wide roles to assign to the service account"
   type        = list(string)
   default = [
-    "roles/resourcemanager.folderCreator",
-    "roles/resourcemanager.projectCreator",
-    "roles/resourcemanager.projectDeleter",
-    "roles/billing.projectManager",
-    "roles/compute.networkAdmin",
-    "roles/compute.networkUser",
-    "roles/source.repos.create",
-    "roles/source.repos.update",
-    "roles/logging.logWriter",
-    "roles/logging.configWriter"
+    "roles/container.clusterAdmin",
+    "roles/compute.admin",
+    "roles/storage.admin"
   ]
 }

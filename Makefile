@@ -5,9 +5,17 @@ SHELL := /usr/bin/env bash
 lint:
 	@source scripts/lint.sh
 
-.PHONY: bootstrap
-bootstrap:
-	@source scripts/bootstrap.sh
+.PHONY: bootstrap-init
+bootstrap-init:
+	@source scripts/bootstrap.sh init
+
+.PHONY: bootstrap-plan
+bootstrap-plan:
+	@source scripts/bootstrap.sh plan
+
+.PHONY: bootstrap-apply
+bootstrap-apply:
+	@source scripts/bootstrap.sh apply force
 
 .PHONY: setup
 setup:
