@@ -14,13 +14,13 @@ fi
 #install terragrunt
 wget -O /tmp/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_${OSTYPE}_amd64
 chmod +x /tmp/terragrunt
-sudo mv /tmp/terragrunt /usr/local/bin
+mv /tmp/terragrunt /usr/local/bin
 terragrunt -version
 
 #install terraform
 wget -O /tmp/terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_${OSTYPE}_amd64.zip
 unzip -q /tmp/terraform.zip -d /tmp
 chmod +x /tmp/terraform
-sudo mv /tmp/terraform /usr/local/bin
+mv /tmp/terraform /usr/local/bin
 rm /tmp/terraform.zip
 terraform --version

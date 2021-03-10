@@ -13,9 +13,17 @@ bootstrap-init:
 bootstrap-plan:
 	@source scripts/bootstrap.sh plan
 
+.PHONY: bootstrap-validate
+bootstrap-validate:
+	@source scripts/bootstrap.sh validate
+
 .PHONY: bootstrap-apply
 bootstrap-apply:
 	@source scripts/bootstrap.sh apply force
+
+.PHONY: push-to-gsr
+push-gsr:
+	@source scripts/bootstrap.sh push-gsr
 
 .PHONY: setup
 setup:

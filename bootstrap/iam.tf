@@ -29,9 +29,24 @@ resource "google_service_account" "bootstrap_sa" {
   depends_on = [module.project-services-bootstrap]
 }
 
-resource "google_project_iam_member" "bootstrap_sa_iam" {
-  for_each = toset(var.project_roles)
+resource "google_folder_iam_member" "bootstrap_sa_iam" {
+  for_each = toset(var.folder_roles)
   member   = "serviceAccount:${google_service_account.bootstrap_sa.email}"
+  folder   = google_folder.tb_management_plane.id
+  role     = each.value
+}
+
+resource "google_service_account_iam_member" "sa_impersonate_permissions" {
+  service_account_id = google_service_account.bootstrap_sa.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:${module.project-bootstrap.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "cloudbuild_sa_iam" {
+  for_each = toset(var.cloudbuild_sa_roles)
+  member   = "serviceAccount:${module.project-bootstrap.number}@cloudbuild.gserviceaccount.com"
   project  = module.project-bootstrap.project_id
   role     = each.value
+
+  depends_on = [module.project-services-bootstrap]
 }

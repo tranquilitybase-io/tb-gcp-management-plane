@@ -34,18 +34,20 @@ resource "google_sourcerepo_repository" "tb-management-plane-repo" {
 resource "google_cloudbuild_trigger" "bootstrap-cb" {
 
   trigger_template {
-    tag_name   = "0.1.0"
+    tag_name   = "^v0.1.0$"
     repo_name  = google_sourcerepo_repository.tb-management-plane-repo.name
     project_id = module.project-bootstrap.project_id
   }
 
   substitutions = {
-    _PROJECT_ID = module.project-bootstrap.project_id
-    _REGION     = var.region
+    _PROJECT_ID  = module.project-management-plane.project_id
+    _REGION      = var.region
+    _ACTION      = "plan"
+    _TF_SA_EMAIL = google_service_account.bootstrap_sa.email
   }
 
   project  = module.project-bootstrap.project_id
-  filename = "cloudbuild.yaml"
+  filename = "bootstrap/cloudbuild.yaml"
 
   depends_on = [module.project-services-bootstrap]
 }

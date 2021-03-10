@@ -30,6 +30,8 @@ variable "activate_apis_bootstrap" {
   default = [
     "cloudbuild.googleapis.com",
     "sourcerepo.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "iamcredentials.googleapis.com",
   ]
 }
 
@@ -91,12 +93,27 @@ variable "description" {
   default     = "Bootstrap custom Service Account"
 }
 
-variable "project_roles" {
-  description = "List of project-wide roles to assign to the service account"
+variable "folder_roles" {
+  description = "List of folder-wide roles to assign to the service account"
   type        = list(string)
   default = [
+    "roles/logging.logWriter",
+    "roles/logging.configWriter",
+    "roles/iam.serviceAccountUser",
+    "roles/iam.serviceAccountAdmin",
     "roles/container.clusterAdmin",
     "roles/compute.admin",
     "roles/storage.admin"
+  ]
+}
+
+variable "cloudbuild_sa_roles" {
+  description = "List of project-wide roles to assign to the cloud build service account"
+  type        = list(string)
+  default = [
+    "roles/cloudbuild.builds.editor",
+    "roles/iam.serviceAccountUser",
+    "roles/serviceusage.serviceUsageConsumer",
+    "roles/iam.serviceAccountTokenCreator"
   ]
 }
