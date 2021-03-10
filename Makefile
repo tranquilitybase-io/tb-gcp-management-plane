@@ -21,7 +21,7 @@ bootstrap-validate:
 bootstrap-apply:
 	@source scripts/bootstrap.sh apply force
 
-.PHONY: push-to-gsr
+.PHONY: push-gsr
 push-gsr:
 	@source scripts/bootstrap.sh push-gsr
 
