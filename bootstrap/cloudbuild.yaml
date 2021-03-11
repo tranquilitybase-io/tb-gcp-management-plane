@@ -41,3 +41,5 @@ steps:
         make setup
         make init
         make ${_ACTION}
+        export GSR_URL=$(cd bootstrap && terraform output -raw gsr_url)
+        make bootstrap push-gsr URL=$GSR_URL

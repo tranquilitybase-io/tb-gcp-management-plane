@@ -31,6 +31,8 @@ function push-gsr() {
 
     git config credential.helper gcloud.sh
     git remote set-url gsr "$2"
+    git add .
+    git commit -m "Adds deployment TF state"
     git push gsr master
 }
 
