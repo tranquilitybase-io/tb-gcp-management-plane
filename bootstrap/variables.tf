@@ -30,6 +30,7 @@ variable "activate_apis_bootstrap" {
   default = [
     "cloudbuild.googleapis.com",
     "sourcerepo.googleapis.com",
+    "container.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "iamcredentials.googleapis.com",
   ]
