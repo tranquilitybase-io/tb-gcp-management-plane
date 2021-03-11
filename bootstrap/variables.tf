@@ -104,7 +104,8 @@ variable "folder_roles" {
     "roles/iam.serviceAccountAdmin",
     "roles/container.clusterAdmin",
     "roles/compute.admin",
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/resourcemanager.projectIamAdmin"
   ]
 }
 
