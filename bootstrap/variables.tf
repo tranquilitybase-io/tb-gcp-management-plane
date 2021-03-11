@@ -117,3 +117,18 @@ variable "cloudbuild_sa_roles" {
     "roles/iam.serviceAccountTokenCreator"
   ]
 }
+
+variable "preemptive" {
+  description = "Preemptive"
+  default     = null
+}
+
+variable "skip_forward_proxy" {
+  description = "Skip forward proxy"
+  default     = null
+}
+
+variable "skip_gke" {
+  description = "Skip gke"
+  default     = null
+}
