@@ -23,7 +23,7 @@ bootstrap-apply:
 
 .PHONY: push-gsr
 push-gsr:
-	@source scripts/bootstrap.sh push-gsr
+	@source scripts/bootstrap.sh push-gsr $$URL
 
 .PHONY: setup
 setup:

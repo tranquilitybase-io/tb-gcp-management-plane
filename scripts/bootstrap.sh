@@ -1,5 +1,43 @@
 #!/bin/bash
 
+function init() {
+    cd ./bootstrap || exit
+    terraform init
+}
+
+function validate() {
+    cd ./bootstrap || exit
+    terraform validate
+}
+
+function plan() {
+    cd ./bootstrap || exit
+    terraform plan
+}
+
+function apply() {
+    cd ./bootstrap || exit
+    terraform apply -auto-approve
+    echo "Bootstrap apply completed successfully"
+}
+
+function push-gsr() {
+    export GCLOUD_EMAIL=$(gcloud config get-value account)
+    echo "$GCLOUD_EMAIL"
+    echo "$USER"
+
+    git config --global user.email "$GCLOUD_EMAIL"
+    git config --global user.name "$USER"
+
+    git config credential.helper gcloud.sh
+    git remote set-url gsr "$2"
+    git push gsr master
+}
+
+###
+# Main script
+###
+
 if [ -z "$1" ]
   then
     echo "No argument supplied"
@@ -7,38 +45,23 @@ if [ -z "$1" ]
 fi
 
 case $1 in
-  'push-gsr')
-    export GCLOUD_EMAIL=$(gcloud config get-value account)
-    echo $GCLOUD_EMAIL
-    echo $USER
-
-    git config --global user.email "$GCLOUD_EMAIL"
-    git config --global user.name "$USER"
-
-    # gcloud source repos create $REPO
-    git config credential.helper gcloud.sh
-    git remote set-url gsr https://source.developers.google.com/p/tf-bootstrap-uy97x/r/tb-management-plane
-    git push gsr master
-    ;;
-
   'init')
-    cd ./bootstrap
-    terraform init
+    init
     ;;
 
   'validate')
-    cd ./bootstrap
-    terraform validate
+    validate
     ;;
 
   'plan')
-    cd ./bootstrap
-    terraform plan
+    plan
     ;;
 
   'apply')
-    cd ./bootstrap
-    terraform apply -auto-approve
-    echo "Bootstrap apply completed successfully"
+    apply
+    ;;
+
+  'push-gsr')
+    push-gsr "$2"
     ;;
 esac

@@ -2,8 +2,8 @@
 
 #set -euo pipefail
 
-cd bootstrap
+cd ./bootstrap
 terraform fmt -recursive
 
-cd deployment
+cd ./deployment
 terragrunt hclfmt

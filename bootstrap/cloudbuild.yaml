@@ -34,9 +34,7 @@ steps:
       - '-c'
       - |-
         echo "${REPO_NAME}"
-        apt-get -y install jq
-        apt-get -y install wget
-        apt-get -y install unzip
+        apt-get -y install jq wget unzip
         echo "Setting up gcloud for impersonation"
         gcloud config set auth/impersonate_service_account ${_TF_SA_EMAIL}
         echo "Setting up TF/TG for impersonation"
