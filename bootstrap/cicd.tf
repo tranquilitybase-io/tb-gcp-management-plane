@@ -28,7 +28,7 @@ resource "google_sourcerepo_repository" "tb-management-plane-repo" {
 }
 
 ###
-# Create Cloud Build trigger
+# Create cloud build trigger
 ###
 
 resource "google_cloudbuild_trigger" "bootstrap-cb" {

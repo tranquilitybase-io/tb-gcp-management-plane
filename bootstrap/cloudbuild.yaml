@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-substitutions:
-  _TF_SA_EMAIL: 'bootstrap-oypxy@tf-bootstrap-oypxy.iam.gserviceaccount.com'
-
 steps:
   - id: 'print branch name'
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
