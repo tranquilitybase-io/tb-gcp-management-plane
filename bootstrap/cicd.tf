@@ -32,12 +32,12 @@ resource "google_sourcerepo_repository" "tb-management-plane-repo" {
 ###
 
 resource "google_cloudbuild_trigger" "bootstrap-cb" {
+  name = "push-to-branch-trigger-pipeline"
 
   trigger_template {
-    branch_name        = "^master$"
-    build_trigger_name = "push-to-branch-trigger-pipeline"
-    repo_name          = google_sourcerepo_repository.tb-management-plane-repo.name
-    project_id         = module.project-bootstrap.project_id
+    branch_name = "^master$"
+    repo_name   = google_sourcerepo_repository.tb-management-plane-repo.name
+    project_id  = module.project-bootstrap.project_id
   }
 
   substitutions = {

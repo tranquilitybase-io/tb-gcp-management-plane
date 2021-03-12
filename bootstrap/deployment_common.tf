@@ -18,19 +18,23 @@
 
 locals {
   bootstrap_tfvars_json = jsondecode(file("bootstrap.auto.tfvars.json"))
-  preemptive            = local.bootstrap_tfvars_json.preemptive
+  preemptible           = local.bootstrap_tfvars_json.preemptible
   region                = local.bootstrap_tfvars_json.region
+  skip_common           = local.bootstrap_tfvars_json.skip_common
   skip_forward_proxy    = local.bootstrap_tfvars_json.skip_forward_proxy
+  skip_network          = local.bootstrap_tfvars_json.skip_network
   skip_gke              = local.bootstrap_tfvars_json.skip_gke
 }
 
 resource "local_file" "common_tfvars" {
   filename = "../deployment/common_vars.json"
   content = jsonencode({
-    "preemptive" : local.preemptive,
+    "preemptive" : local.preemptible,
     "project_id" : module.project-management-plane.project_id,
     "region" : local.region,
+    "skip_common" : local.skip_common,
     "skip_forward_proxy" : local.skip_forward_proxy,
+    "skip_networks" : local.skip_network,
     "skip_gke" : local.skip_gke
   })
 }

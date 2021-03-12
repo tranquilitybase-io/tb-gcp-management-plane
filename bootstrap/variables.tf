@@ -120,13 +120,23 @@ variable "cloudbuild_sa_roles" {
   ]
 }
 
-variable "preemptive" {
-  description = "Preemptive"
+variable "preemptible" {
+  description = "Preemptible"
+  default     = null
+}
+
+variable "skip_common" {
+  description = "Skip common"
   default     = null
 }
 
 variable "skip_forward_proxy" {
   description = "Skip forward proxy"
+  default     = null
+}
+
+variable "skip_network" {
+  description = "Skip network"
   default     = null
 }
 

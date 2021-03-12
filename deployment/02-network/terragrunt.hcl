@@ -22,7 +22,7 @@ locals {
   network_name = "tb-mgmt-network"
   project_id   = local.common_vars.project_id
   region       = local.common_vars.region
-  skip         = tobool(lookup(local.common_vars, "skip_networks", false))
+  skip         = tobool(lookup(local.common_vars, "skip_network", false))
   subnet_name  = "tb-mgmt-snet-${local.common_vars.region}"
 }
 
