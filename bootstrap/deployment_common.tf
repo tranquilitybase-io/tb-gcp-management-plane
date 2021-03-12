@@ -16,25 +16,15 @@
 # Populate common_vars.json to deployment folder
 ###
 
-locals {
-  bootstrap_tfvars_json = jsondecode(file("bootstrap.auto.tfvars.json"))
-  preemptible           = tobool(lookup(local.bootstrap_tfvars_json, "preemptible", false))
-  region                = local.bootstrap_tfvars_json.region
-  skip_common           = tobool(lookup(local.bootstrap_tfvars_json, "skip_common", false))
-  skip_forward_proxy    = tobool(lookup(local.bootstrap_tfvars_json, "skip_forward_proxy", false))
-  skip_network          = tobool(lookup(local.bootstrap_tfvars_json, "skip_network", false))
-  skip_gke              = tobool(lookup(local.bootstrap_tfvars_json, "skip_gke", false))
-}
-
 resource "local_file" "common_tfvars" {
   filename = "../deployment/common_vars.json"
   content = jsonencode({
-    "preemptive" : local.preemptible,
+    "preemptive" : var.preemptible,
     "project_id" : module.project-management-plane.project_id,
-    "region" : local.region,
-    "skip_common" : local.skip_common,
-    "skip_forward_proxy" : local.skip_forward_proxy,
-    "skip_networks" : local.skip_network,
-    "skip_gke" : local.skip_gke
+    "region" : var.region,
+    "skip_common" : var.skip_common,
+    "skip_forward_proxy" : var.skip_forward_proxy,
+    "skip_network" : var.skip_network,
+    "skip_gke" : var.skip_gke
   })
 }

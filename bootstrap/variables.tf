@@ -122,25 +122,30 @@ variable "cloudbuild_sa_roles" {
 
 variable "preemptible" {
   description = "Preemptible"
-  default     = null
+  type        = bool
+  default     = false
 }
 
 variable "skip_common" {
   description = "Skip common"
-  default     = null
+  type        = bool
+  default     = false
 }
 
 variable "skip_forward_proxy" {
   description = "Skip forward proxy"
-  default     = null
+  type        = bool
+  default     = false
 }
 
 variable "skip_network" {
   description = "Skip network"
-  default     = null
+  type        = bool
+  default     = false
 }
 
 variable "skip_gke" {
   description = "Skip gke"
-  default     = null
+  type        = bool
+  default     = false
 }

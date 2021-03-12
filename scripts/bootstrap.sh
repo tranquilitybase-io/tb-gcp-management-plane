@@ -32,18 +32,24 @@ function apply() {
 
 function push-gsr() {
     export GCLOUD_EMAIL=$(gcloud config get-value account)
+    export USER_NAME=$(gcloud config get-value account | cut -d @ -f1)
     echo "$GCLOUD_EMAIL"
-    echo "$USER"
+    echo "$USER_NAME"
 
     git config --global user.email "$GCLOUD_EMAIL"
-    git config --global user.name "$USER"
+    git config --global user.name "$USER_NAME"
 
     git config --global credential.https://source.developers.google.com.helper gcloud.sh
     git remote set-url origin ${URL}
-    git status
+
+    if [ -n "$(git status --porcelain)" ]; then
+    echo "Commiting changes."
     git add .
     git commit -m "Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
     git push origin master
+    else
+    echo "No changes commited."
+    fi
 }
 
 ###
