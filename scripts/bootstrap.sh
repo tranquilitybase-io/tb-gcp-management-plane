@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+URL=$2
+
 function init() {
     cd ./bootstrap || exit
     terraform init
@@ -13,6 +17,11 @@ function validate() {
 function plan() {
     cd ./bootstrap || exit
     terraform plan
+}
+
+function destroy() {
+    cd ./bootstrap || exit
+    terraform destroy
 }
 
 function apply() {
@@ -29,11 +38,12 @@ function push-gsr() {
     git config --global user.email "$GCLOUD_EMAIL"
     git config --global user.name "$USER"
 
-    git config credential.helper gcloud.sh
-    git remote set-url gsr "$2"
+    git config --global credential.https://source.developers.google.com.helper gcloud.sh
+    git remote set-url origin ${URL}
+    git status
     git add .
     git commit -m "Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
-    git push gsr master
+    git push origin master
 }
 
 ###
@@ -63,7 +73,11 @@ case $1 in
     apply
     ;;
 
+  'destroy')
+    destroy
+    ;;
+
   'push-gsr')
-    push-gsr "$2"
+    push-gsr ${URL}
     ;;
 esac

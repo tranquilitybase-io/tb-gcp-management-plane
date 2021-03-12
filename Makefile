@@ -21,9 +21,13 @@ bootstrap-validate:
 bootstrap-apply:
 	@source scripts/bootstrap.sh apply force
 
+.PHONY: bootstrap-destroy
+bootstrap-destroy:
+	@source scripts/bootstrap.sh destroy
+
 .PHONY: push-gsr
 push-gsr:
-	@source scripts/bootstrap.sh push-gsr $$URL
+	@source scripts/bootstrap.sh push-gsr ${GSR_URL}
 
 .PHONY: setup
 setup:
