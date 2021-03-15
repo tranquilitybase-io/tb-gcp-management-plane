@@ -41,5 +41,3 @@ steps:
         make setup
         make init
         make ${_ACTION}
-        export GSR_URL=${_GSR_URL}
-        make push-gsr

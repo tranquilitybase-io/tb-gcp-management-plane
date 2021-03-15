@@ -46,7 +46,7 @@ function push-gsr() {
     echo "Commiting changes."
     git add .
     git commit -m "Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
-    git push origin master
+    git push origin master --tags
     else
     echo "No changes commited."
     fi
