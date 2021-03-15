@@ -20,7 +20,7 @@ locals {
 # Create source repository
 ###
 
-resource "google_sourcerepo_repository" "tb-management-plane-repo" {
+resource "google_sourcerepo_repository" "tb_management_plane_repo" {
   name    = local.source_repo_name
   project = module.project-bootstrap.project_id
 
@@ -31,13 +31,13 @@ resource "google_sourcerepo_repository" "tb-management-plane-repo" {
 # Create cloud build trigger
 ###
 
-resource "google_cloudbuild_trigger" "bootstrap-cb" {
+resource "google_cloudbuild_trigger" "bootstrap_cb" {
   name = "push-to-branch-trigger-pipeline"
 
   trigger_template {
-    branch_name = "^master$"
-    repo_name   = google_sourcerepo_repository.tb-management-plane-repo.name
-    project_id  = module.project-bootstrap.project_id
+    tag_name   = "v0.*"
+    repo_name  = google_sourcerepo_repository.tb-management-plane-repo.name
+    project_id = module.project-bootstrap.project_id
   }
 
   substitutions = {
