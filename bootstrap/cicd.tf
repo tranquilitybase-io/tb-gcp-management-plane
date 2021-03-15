@@ -36,7 +36,7 @@ resource "google_cloudbuild_trigger" "bootstrap_cb" {
 
   trigger_template {
     tag_name   = "v0.*"
-    repo_name  = google_sourcerepo_repository.tb-management-plane-repo.name
+    repo_name  = google_sourcerepo_repository.tb_management_plane_repo.name
     project_id = module.project-bootstrap.project_id
   }
 
@@ -44,7 +44,7 @@ resource "google_cloudbuild_trigger" "bootstrap_cb" {
     _PROJECT_ID  = module.project-management-plane.project_id
     _REGION      = var.region
     _ACTION      = "plan"
-    _GSR_URL     = google_sourcerepo_repository.tb-management-plane-repo.url
+    _GSR_URL     = google_sourcerepo_repository.tb_management_plane_repo.url
     _TF_SA_EMAIL = google_service_account.bootstrap_sa.email
   }
 

@@ -13,5 +13,5 @@
 # limitations under the License.
 
 output "gsr_url" {
-  value = google_sourcerepo_repository.tb-management-plane-repo.url
+  value = google_sourcerepo_repository.tb_management_plane_repo.url
 }
